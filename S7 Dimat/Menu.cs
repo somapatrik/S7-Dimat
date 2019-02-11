@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using S7_Dimat.Class;
-using Zakázky.Class;
 using System.Data.SQLite;
 
 namespace S7_Dimat

@@ -5,9 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Data.SQLite;
 using System.IO;
-using S7_Dimat.Class;
 
-namespace Zakázky.Class
+namespace S7_Dimat.Class
 {
     public class DBLite
     {
