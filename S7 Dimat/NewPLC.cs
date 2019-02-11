@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace S7_Dimat
 {
-    public partial class EditPLC : Form
+    public partial class NewPLC : Form
     {
-        public EditPLC()
+        public NewPLC()
         {
             InitializeComponent();
+        }
+
+        private void NewPLC_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

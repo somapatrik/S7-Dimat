@@ -57,5 +57,11 @@ namespace S7_Dimat
                 this.Close();
             }
         }
+
+        private void přidatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewPLC add = new NewPLC();
+            add.ShowDialog();
+        }
     }
 }

@@ -70,12 +70,6 @@
     <Compile Include="Class\InputFormatter.cs" />
     <Compile Include="Class\Plc.cs" />
     <Compile Include="Class\Sharp7.cs" />
-    <Compile Include="EditPLC.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EditPLC.Designer.cs">
-      <DependentUpon>EditPLC.cs</DependentUpon>
-    </Compile>
     <Compile Include="EditTableControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -94,6 +88,12 @@
     <Compile Include="Menu.Designer.cs">
       <DependentUpon>Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewPLC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewPLC.Designer.cs">
+      <DependentUpon>NewPLC.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="EditTableControl.resx">
@@ -104,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewPLC.resx">
+      <DependentUpon>NewPLC.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

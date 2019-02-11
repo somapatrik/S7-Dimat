@@ -28,12 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.pLCToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.přidatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.pLCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.novéToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -42,11 +46,28 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pLCToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1098, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // pLCToolStripMenuItem1
+            // 
+            this.pLCToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.přidatToolStripMenuItem});
+            this.pLCToolStripMenuItem1.Name = "pLCToolStripMenuItem1";
+            this.pLCToolStripMenuItem1.Size = new System.Drawing.Size(40, 20);
+            this.pLCToolStripMenuItem1.Text = "PLC";
+            // 
+            // přidatToolStripMenuItem
+            // 
+            this.přidatToolStripMenuItem.Name = "přidatToolStripMenuItem";
+            this.přidatToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.přidatToolStripMenuItem.Text = "Přidat...";
+            this.přidatToolStripMenuItem.Click += new System.EventHandler(this.přidatToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -96,6 +117,11 @@
             this.novéToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.novéToolStripMenuItem.Text = "Přidat/Odebrat...";
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -126,5 +152,8 @@
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.ToolStripMenuItem pLCToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem novéToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pLCToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem přidatToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
