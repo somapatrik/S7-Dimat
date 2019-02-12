@@ -151,20 +151,31 @@ namespace S7_Dimat
 
         private void btn_ok_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txt_ip.Text) && !string.IsNullOrEmpty(txt_name.Text))
-            {
-                if (Test())
+            try {
+
+                if (!string.IsNullOrEmpty(txt_ip.Text) && !string.IsNullOrEmpty(txt_name.Text))
                 {
-                    DBLite db = new DBLite("insert into PLC values (null, @name, ifnull(@desc,''), @ip, @r, @s, @type)");
-                    db.AddParameter("name", txt_name.Text, DbType.String);
-                    db.AddParameter("desc", txt_desc.Text, DbType.String);
-                    db.AddParameter("ip", txt_ip.Text, DbType.String);
-                    db.AddParameter("r", rack.Value, DbType.Int32);
-                    db.AddParameter("s", slot.Value, DbType.Int32);
-                    db.AddParameter("type", combo_typ.SelectedValue.ToString(), DbType.String);
-                    db.Exec();
+                    if (!Test())
+                    {
+                        if (MessageBox.Show("K PLC se aktualně nedá připojit, chcete pokračovat?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            DBLite db = new DBLite("insert into PLC values (null, @name, ifnull(@desc,''), @ip, @r, @s, @type)");
+                            db.AddParameter("name", txt_name.Text, DbType.String);
+                            db.AddParameter("desc", txt_desc.Text, DbType.String);
+                            db.AddParameter("ip", txt_ip.Text, DbType.String);
+                            db.AddParameter("r", rack.Value, DbType.Int32);
+                            db.AddParameter("s", slot.Value, DbType.Int32);
+                            db.AddParameter("type", combo_typ.SelectedValue.ToString(), DbType.String);
+                            db.Exec();
+                            this.DialogResult = DialogResult.OK;
+                        }
+                    }
                 }
-            }
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Chyba zapsání PLC do DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }      
         }
     }
 }

@@ -52,7 +52,7 @@
             this.txt_ip.Margin = new System.Windows.Forms.Padding(4);
             this.txt_ip.Name = "txt_ip";
             this.txt_ip.Size = new System.Drawing.Size(210, 22);
-            this.txt_ip.TabIndex = 0;
+            this.txt_ip.TabIndex = 2;
             // 
             // txt_name
             // 
@@ -60,7 +60,7 @@
             this.txt_name.Margin = new System.Windows.Forms.Padding(4);
             this.txt_name.Name = "txt_name";
             this.txt_name.Size = new System.Drawing.Size(353, 22);
-            this.txt_name.TabIndex = 1;
+            this.txt_name.TabIndex = 5;
             // 
             // label1
             // 
@@ -90,7 +90,7 @@
             this.combo_typ.Margin = new System.Windows.Forms.Padding(4);
             this.combo_typ.Name = "combo_typ";
             this.combo_typ.Size = new System.Drawing.Size(354, 24);
-            this.combo_typ.TabIndex = 4;
+            this.combo_typ.TabIndex = 1;
             this.combo_typ.SelectedIndexChanged += new System.EventHandler(this.combo_typ_SelectedIndexChanged);
             // 
             // label3
@@ -108,14 +108,14 @@
             this.rack.Location = new System.Drawing.Point(228, 78);
             this.rack.Name = "rack";
             this.rack.Size = new System.Drawing.Size(66, 22);
-            this.rack.TabIndex = 6;
+            this.rack.TabIndex = 3;
             // 
             // slot
             // 
             this.slot.Location = new System.Drawing.Point(300, 78);
             this.slot.Name = "slot";
             this.slot.Size = new System.Drawing.Size(66, 22);
-            this.slot.TabIndex = 7;
+            this.slot.TabIndex = 4;
             // 
             // label4
             // 
@@ -154,7 +154,7 @@
             this.txt_desc.Multiline = true;
             this.txt_desc.Name = "txt_desc";
             this.txt_desc.Size = new System.Drawing.Size(353, 68);
-            this.txt_desc.TabIndex = 10;
+            this.txt_desc.TabIndex = 6;
             // 
             // btn_ok
             // 
@@ -162,7 +162,7 @@
             this.btn_ok.Location = new System.Drawing.Point(283, 241);
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(83, 26);
-            this.btn_ok.TabIndex = 12;
+            this.btn_ok.TabIndex = 8;
             this.btn_ok.Text = "Přidat";
             this.btn_ok.UseVisualStyleBackColor = true;
             this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
@@ -173,7 +173,7 @@
             this.btn_test.Location = new System.Drawing.Point(12, 241);
             this.btn_test.Name = "btn_test";
             this.btn_test.Size = new System.Drawing.Size(83, 26);
-            this.btn_test.TabIndex = 13;
+            this.btn_test.TabIndex = 7;
             this.btn_test.Text = "Test";
             this.btn_test.UseVisualStyleBackColor = true;
             this.btn_test.Click += new System.EventHandler(this.btn_test_Click);
@@ -205,7 +205,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NewPLC";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Přidat PLC";
             this.Load += new System.EventHandler(this.NewPLC_Load);
             ((System.ComponentModel.ISupportInitialize)(this.rack)).EndInit();

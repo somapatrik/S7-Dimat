@@ -65,7 +65,7 @@
             // přidatToolStripMenuItem
             // 
             this.přidatToolStripMenuItem.Name = "přidatToolStripMenuItem";
-            this.přidatToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.přidatToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.přidatToolStripMenuItem.Text = "Přidat...";
             this.přidatToolStripMenuItem.Click += new System.EventHandler(this.přidatToolStripMenuItem_Click);
             // 
@@ -79,7 +79,7 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.BackColor = System.Drawing.Color.LightGray;
+            this.splitContainer1.BackColor = System.Drawing.Color.Transparent;
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 24);
@@ -132,7 +132,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Menu";
-            this.Text = "Menu";
+            this.Text = "S7-Dimat";
             this.Load += new System.EventHandler(this.Menu_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

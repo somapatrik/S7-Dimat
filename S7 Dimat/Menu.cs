@@ -18,12 +18,27 @@ namespace S7_Dimat
         public Menu()
         {
             InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
         }
 
         private void Menu_Load(object sender, EventArgs e)
         {
             LoadLocalDB();
+            LoadTree();
+        }
+
+        private void LoadTree()
+        {
+            treeView1.Nodes.Clear();
+            DBLite db = new DBLite("select ID, Name from PLC");
+            using (SQLiteDataReader dr = db.ExecReader())
+            {
+                while (dr.Read()) { 
+                TreeNode node = new TreeNode(dr.GetString(dr.GetOrdinal("Name")));
+                node.Tag = dr.GetInt32(dr.GetOrdinal("ID"));
+                   
+                treeView1.Nodes.Add(node);
+                }
+            }
         }
 
         private void LoadLocalDB()
@@ -60,7 +75,10 @@ namespace S7_Dimat
         private void přidatToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NewPLC add = new NewPLC();
-            add.ShowDialog();
+            if (add.ShowDialog() == DialogResult.OK)
+            {
+                LoadTree();
+            }
         }
     }
 }
