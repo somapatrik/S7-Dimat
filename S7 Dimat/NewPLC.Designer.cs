@@ -28,39 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txt_ip = new System.Windows.Forms.TextBox();
+            this.txt_name = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.combo_typ = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.rack = new System.Windows.Forms.NumericUpDown();
+            this.slot = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txt_desc = new System.Windows.Forms.TextBox();
             this.btn_ok = new System.Windows.Forms.Button();
             this.btn_test = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.slot)).BeginInit();
             this.SuspendLayout();
             // 
-            // textBox1
+            // txt_ip
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 78);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(210, 22);
-            this.textBox1.TabIndex = 0;
+            this.txt_ip.Location = new System.Drawing.Point(12, 78);
+            this.txt_ip.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_ip.Name = "txt_ip";
+            this.txt_ip.Size = new System.Drawing.Size(210, 22);
+            this.txt_ip.TabIndex = 0;
             // 
-            // textBox2
+            // txt_name
             // 
-            this.textBox2.Location = new System.Drawing.Point(12, 123);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(353, 22);
-            this.textBox2.TabIndex = 1;
+            this.txt_name.Location = new System.Drawing.Point(12, 123);
+            this.txt_name.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_name.Name = "txt_name";
+            this.txt_name.Size = new System.Drawing.Size(353, 22);
+            this.txt_name.TabIndex = 1;
             // 
             // label1
             // 
@@ -87,10 +87,11 @@
             this.combo_typ.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.combo_typ.FormattingEnabled = true;
             this.combo_typ.Location = new System.Drawing.Point(12, 31);
-            this.combo_typ.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.combo_typ.Margin = new System.Windows.Forms.Padding(4);
             this.combo_typ.Name = "combo_typ";
             this.combo_typ.Size = new System.Drawing.Size(354, 24);
             this.combo_typ.TabIndex = 4;
+            this.combo_typ.SelectedIndexChanged += new System.EventHandler(this.combo_typ_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -102,19 +103,19 @@
             this.label3.TabIndex = 5;
             this.label3.Text = "Typ PLC";
             // 
-            // numericUpDown1
+            // rack
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(228, 78);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(66, 22);
-            this.numericUpDown1.TabIndex = 6;
+            this.rack.Location = new System.Drawing.Point(228, 78);
+            this.rack.Name = "rack";
+            this.rack.Size = new System.Drawing.Size(66, 22);
+            this.rack.TabIndex = 6;
             // 
-            // numericUpDown2
+            // slot
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(300, 78);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(66, 22);
-            this.numericUpDown2.TabIndex = 7;
+            this.slot.Location = new System.Drawing.Point(300, 78);
+            this.slot.Name = "slot";
+            this.slot.Size = new System.Drawing.Size(66, 22);
+            this.slot.TabIndex = 7;
             // 
             // label4
             // 
@@ -146,32 +147,36 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "Popis";
             // 
-            // textBox3
+            // txt_desc
             // 
-            this.textBox3.Location = new System.Drawing.Point(12, 167);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(353, 68);
-            this.textBox3.TabIndex = 10;
+            this.txt_desc.Location = new System.Drawing.Point(12, 167);
+            this.txt_desc.Margin = new System.Windows.Forms.Padding(4);
+            this.txt_desc.Multiline = true;
+            this.txt_desc.Name = "txt_desc";
+            this.txt_desc.Size = new System.Drawing.Size(353, 68);
+            this.txt_desc.TabIndex = 10;
             // 
             // btn_ok
             // 
+            this.btn_ok.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_ok.Location = new System.Drawing.Point(283, 241);
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(83, 26);
             this.btn_ok.TabIndex = 12;
             this.btn_ok.Text = "Přidat";
             this.btn_ok.UseVisualStyleBackColor = true;
+            this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
             // 
             // btn_test
             // 
+            this.btn_test.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_test.Location = new System.Drawing.Point(12, 241);
             this.btn_test.Name = "btn_test";
             this.btn_test.Size = new System.Drawing.Size(83, 26);
             this.btn_test.TabIndex = 13;
             this.btn_test.Text = "Test";
             this.btn_test.UseVisualStyleBackColor = true;
+            this.btn_test.Click += new System.EventHandler(this.btn_test_Click);
             // 
             // NewPLC
             // 
@@ -183,28 +188,28 @@
             this.Controls.Add(this.btn_test);
             this.Controls.Add(this.btn_ok);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.txt_desc);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.numericUpDown2);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.slot);
+            this.Controls.Add(this.rack);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.combo_typ);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txt_name);
+            this.Controls.Add(this.txt_ip);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NewPLC";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Přidat PLC";
             this.Load += new System.EventHandler(this.NewPLC_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.slot)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -212,18 +217,18 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txt_ip;
+        private System.Windows.Forms.TextBox txt_name;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox combo_typ;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown rack;
+        private System.Windows.Forms.NumericUpDown slot;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txt_desc;
         private System.Windows.Forms.Button btn_ok;
         private System.Windows.Forms.Button btn_test;
     }
