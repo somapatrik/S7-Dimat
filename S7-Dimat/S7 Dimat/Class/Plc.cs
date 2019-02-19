@@ -93,19 +93,30 @@ namespace S7_Dimat.Class
             client.Disconnect();
         }
 
-        public string GetValue(string Value)
+        public string GetValue(string ValueRaw)
         {
+            string Value = ValueRaw.Trim();
+
             Boolean Input = Value.StartsWith("I");
             Boolean Output = Value.StartsWith("Q");
             Boolean M = Value.StartsWith("M");
             Boolean DB = Value.StartsWith("DB");
 
+            //Type of memory
             int Area = 0;
+            // Number of bytes to be red
             int BufferSize;
+            // How many entities will be red
             int Amount = 1;
-            int Start = 0;
+            // Where reading starts (if bits = number of bit)
+            // 10.3 = (10 * 8) + 3
+            int Start;
+            // 0 - 7 Position of the bit inside a byte
             int BitPosition;
+            // DB number, is ignored if not reading DB
             int DBNumber = 0;
+
+            int WordLen = 0;
 
             // Set type of variable to read
             if (Input) { Area = S7Consts.S7AreaPE; }
@@ -133,39 +144,41 @@ namespace S7_Dimat.Class
                 DBNumber = SetDBnummber(Value);
             }
 
+            // WordLen
+            WordLen = SetWordLen(ReadBit, BufferSize);
+
             byte[] buffer = new byte[BufferSize];
 
-            buffer = GetBuffer(Area, BufferSize, DBNumber, Start, Amount, ReadBit);
+            buffer = GetBuffer(Area, BufferSize, DBNumber, Start, Amount, WordLen);
 
             return S7.GetBitAt(buffer, 0, 0).ToString();
 
         }
 
-        public void test()
-        {
-            byte[] buffer = new byte[1];
-            client.ReadArea(S7Consts.S7AreaPE, 0, 15, 1, S7Consts.S7WLBit, buffer);
-            Boolean b = S7.GetBitAt(buffer, 0, 5);
 
+        private byte[] GetBuffer(int S7Area, int BufferSize, int DBNumber, int Start, int Amount, int WordLen)
+        {           
+            byte[] buffer = new byte[BufferSize];
+            client.ReadArea(S7Area, DBNumber, Start, Amount, WordLen, buffer);
+            return buffer;
         }
 
-
-        private byte[] GetBuffer(int S7Area, int BufferSize, int DBNumber, int Start, int Amount, Boolean ReadBit)
+        private int SetWordLen(Boolean ReadBit, int BufferSize)
         {
             int WordLen = 0;
+
             if (ReadBit)
             {
                 WordLen = S7Consts.S7WLBit;
-            } else
+            }
+            else
             {
                 WordLen = BufferSize == 1 ? S7Consts.S7WLByte : 0;
                 WordLen = BufferSize == 2 ? S7Consts.S7WLWord : WordLen;
                 WordLen = BufferSize == 4 ? S7Consts.S7WLDWord : WordLen;
             }
-            
-            byte[] buffer = new byte[BufferSize];
-            client.ReadArea(S7Area, DBNumber, Start, Amount, WordLen, buffer);
-            return buffer;
+
+            return WordLen;
         }
 
         private int SetDBnummber(string Value)
@@ -226,7 +239,7 @@ namespace S7_Dimat.Class
 
                 if (!DB)
                 {
-                    // IB, IW, ID
+                    // I[B], I[W], I[D]
                     ReadLetter = Value.Substring(1, 1);
                 }
                 else
@@ -245,11 +258,13 @@ namespace S7_Dimat.Class
 
         private Boolean ReadingBit(Boolean DB, string Value)
         {
+            // I1.1, M50.4
             if (!DB && Value.Contains("."))
             {
                 return true;
             }
 
+            // [DB100].[DBX1].[0]
             if (DB)
             {
                 if (Value.Split('.').Length > 2)
