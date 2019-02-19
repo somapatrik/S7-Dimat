@@ -106,6 +106,7 @@
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(192, 688);
             this.treeView1.TabIndex = 0;
+            this.treeView1.DoubleClick += new System.EventHandler(this.treeView1_DoubleClick);
             this.treeView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseUp);
             // 
             // pLCToolStripMenuItem
@@ -125,7 +126,7 @@
             this.context_plclist.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.smazatToolStripMenuItem});
             this.context_plclist.Name = "contextMenuStrip1";
-            this.context_plclist.Size = new System.Drawing.Size(181, 48);
+            this.context_plclist.Size = new System.Drawing.Size(113, 26);
             // 
             // smazatToolStripMenuItem
             // 
@@ -144,6 +145,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Menu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "S7-Dimat";
             this.Load += new System.EventHandler(this.Menu_Load);
             this.menuStrip1.ResumeLayout(false);

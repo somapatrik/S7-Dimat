@@ -114,5 +114,18 @@ namespace S7_Dimat
 
             LoadTree();
         }
+
+        private void treeView1_DoubleClick(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode != null)
+            {
+                TreeNode node = treeView1.SelectedNode;
+                int id = Convert.ToInt32(node.Tag);
+                splitContainer1.Panel2.Controls.Clear();
+                UserControl control = new EditTableControl(id);
+                control.Dock = DockStyle.Fill;
+                splitContainer1.Panel2.Controls.Add(control);
+            }
+        }
     }
 }

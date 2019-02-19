@@ -28,37 +28,97 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditTableControl));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.textToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
+            this.odpojitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.textToolStripMenuItem});
+            this.toolStripTextBox1,
+            this.toolStripTextBox2,
+            this.textToolStripMenuItem,
+            this.odpojitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(752, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(752, 27);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // textToolStripMenuItem
             // 
+            this.textToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("textToolStripMenuItem.Image")));
             this.textToolStripMenuItem.Name = "textToolStripMenuItem";
-            this.textToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
-            this.textToolStripMenuItem.Text = "Text";
+            this.textToolStripMenuItem.Size = new System.Drawing.Size(77, 23);
+            this.textToolStripMenuItem.Text = "Připojit";
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 542);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(752, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 1;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 27);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(752, 515);
+            this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.BackColor = System.Drawing.Color.White;
+            this.toolStripTextBox1.Enabled = false;
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.ReadOnly = true;
+            this.toolStripTextBox1.Size = new System.Drawing.Size(200, 23);
+            this.toolStripTextBox1.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // toolStripTextBox2
+            // 
+            this.toolStripTextBox2.BackColor = System.Drawing.Color.White;
+            this.toolStripTextBox2.Enabled = false;
+            this.toolStripTextBox2.Name = "toolStripTextBox2";
+            this.toolStripTextBox2.ReadOnly = true;
+            this.toolStripTextBox2.Size = new System.Drawing.Size(200, 23);
+            this.toolStripTextBox2.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // odpojitToolStripMenuItem
+            // 
+            this.odpojitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("odpojitToolStripMenuItem.Image")));
+            this.odpojitToolStripMenuItem.Name = "odpojitToolStripMenuItem";
+            this.odpojitToolStripMenuItem.Size = new System.Drawing.Size(80, 23);
+            this.odpojitToolStripMenuItem.Text = "Odpojit";
             // 
             // EditTableControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "EditTableControl";
             this.Size = new System.Drawing.Size(752, 564);
+            this.Load += new System.EventHandler(this.EditTableControl_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -69,5 +129,10 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem textToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
+        private System.Windows.Forms.ToolStripMenuItem odpojitToolStripMenuItem;
     }
 }
