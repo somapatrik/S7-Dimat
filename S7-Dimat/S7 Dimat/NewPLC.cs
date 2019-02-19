@@ -149,6 +149,21 @@ namespace S7_Dimat
             return res;
         }
 
+        private Boolean PLCExists()
+        {
+            DBLite db = new DBLite("select * from PLC where Name like @name");
+            db.AddParameter("name", txt_name.Text, DbType.String);
+            using (SQLiteDataReader dr = db.ExecReader())
+            {
+                if (dr.HasRows)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         private void btn_ok_Click(object sender, EventArgs e)
         {
             try {
@@ -157,8 +172,15 @@ namespace S7_Dimat
                 {
                     if (!Test())
                     {
-                        if (MessageBox.Show("K PLC se aktualně nedá připojit, chcete pokračovat?", "?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        if (MessageBox.Show("K PLC se aktualně nedá připojit, chcete pokračovat?", "Nelze připojit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                         {
+                            return;
+                        }
+                    }
+
+                    if (!PLCExists())
+                    {
+
                             DBLite db = new DBLite("insert into PLC values (null, @name, ifnull(@desc,''), @ip, @r, @s, @type)");
                             db.AddParameter("name", txt_name.Text, DbType.String);
                             db.AddParameter("desc", txt_desc.Text, DbType.String);
@@ -168,8 +190,11 @@ namespace S7_Dimat
                             db.AddParameter("type", combo_typ.SelectedValue.ToString(), DbType.String);
                             db.Exec();
                             this.DialogResult = DialogResult.OK;
-                        }
+                    } else
+                    {
+                        MessageBox.Show("PLC s tímto názvem už existuje", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+
                 }
 
             } catch (Exception ex)
