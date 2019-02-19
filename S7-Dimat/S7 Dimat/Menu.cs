@@ -71,15 +71,6 @@ namespace S7_Dimat
             }
         }
 
-        private void přidatToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NewPLC add = new NewPLC();
-            if (add.ShowDialog() == DialogResult.OK)
-            {
-                LoadTree();
-            }
-        }
-
         private void treeView1_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -91,6 +82,10 @@ namespace S7_Dimat
                 {
                     treeView1.SelectedNode = node;
                     context_plclist.Show(treeView1, p);
+                }
+                else
+                {
+                    context_new.Show(MousePosition);
                 }
             }
         }
@@ -125,6 +120,15 @@ namespace S7_Dimat
                 UserControl control = new EditTableControl(id);
                 control.Dock = DockStyle.Fill;
                 splitContainer1.Panel2.Controls.Add(control);
+            }
+        }
+
+        private void novéToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            NewPLC add = new NewPLC();
+            if (add.ShowDialog() == DialogResult.OK)
+            {
+                LoadTree();
             }
         }
     }
