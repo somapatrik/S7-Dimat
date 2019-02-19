@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditTableControl));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.textToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,6 +38,7 @@
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
             this.odpojitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +63,7 @@
             this.textToolStripMenuItem.Name = "textToolStripMenuItem";
             this.textToolStripMenuItem.Size = new System.Drawing.Size(77, 23);
             this.textToolStripMenuItem.Text = "Připojit";
+            this.textToolStripMenuItem.Click += new System.EventHandler(this.textToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 
@@ -80,6 +83,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(752, 515);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
+            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);
             // 
             // toolStripTextBox1
             // 
@@ -105,6 +109,11 @@
             this.odpojitToolStripMenuItem.Name = "odpojitToolStripMenuItem";
             this.odpojitToolStripMenuItem.Size = new System.Drawing.Size(80, 23);
             this.odpojitToolStripMenuItem.Text = "Odpojit";
+            this.odpojitToolStripMenuItem.Click += new System.EventHandler(this.odpojitToolStripMenuItem_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
             // 
             // EditTableControl
             // 
@@ -134,5 +143,6 @@
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
         private System.Windows.Forms.ToolStripMenuItem odpojitToolStripMenuItem;
+        private System.Windows.Forms.Timer timer1;
     }
 }

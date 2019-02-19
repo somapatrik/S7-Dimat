@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using S7_Dimat.Class;
 using System.Data.SQLite;
+using System.Threading;
 
 namespace S7_Dimat
 {
@@ -26,6 +27,8 @@ namespace S7_Dimat
 
         private Boolean run;
 
+        private Thread mythread;
+
         public EditTableControl()
         {
             InitializeComponent();
@@ -34,18 +37,81 @@ namespace S7_Dimat
         public EditTableControl(int ID)
         {
             InitializeComponent();
-
+            // Načte z DB
             _id = ID;
             LoadPlc();
-
+            // Vytvoří datagrid
             CreateTable();
+            // Vlákno pro čtení
+            mythread = new Thread(new ThreadStart(ThreadWork));
+            // PLC globálně
+            _plc = new Plc(_ip, _rack, _slot);
+            _plc.Type = _type;
 
+        }
+
+        // Připojit
+        private void textToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!run)
+            {              
+                if (_plc.Connect())
+                {
+                    run = true;
+                    textToolStripMenuItem.Enabled = false;
+                    mythread.Start();
+                } else
+                {
+                    MessageBox.Show("Nelze se připojit k PLC", "Chyba připojení PLC");
+                }
+            }
+        }
+
+        private void odpojitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            run = false;
+            //if (mythread.IsAlive)
+            //{
+            //    mythread.Abort();
+            //}
+            
+            textToolStripMenuItem.Enabled = true;
+        }
+
+        // Vlákno čtení
+        private void ThreadWork()
+        {
+            while (run)
+            {
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    if (row.Cells["address"].Value != null)
+                    { 
+                        // Přečti řádek
+                        string addr = row.Cells["address"].Value.ToString();
+                        string format = row.Cells["format"].Value.ToString();
+                        int rowindex = row.Index;
+                        // Hodnota z PLC
+                        string resvalue =System.Text.Encoding.UTF8.GetString(_plc.GetValue(addr));
+                        // Update datagridview
+                        SendResult dResult = new SendResult(ShowResult);
+                        this.Invoke(dResult, rowindex, resvalue);
+                    }
+                }
+                Thread.Sleep(100);
+            }
+        }
+
+        private delegate void SendResult(int index, string result);
+        private void ShowResult(int index, string result)
+        {
+            dataGridView1.Rows[index].Cells["result"].Value = result;
         }
 
         private void CreateTable()
         {
             BuildRow();
-            dataGridView1.Rows.Add(10);
+            dataGridView1.Rows.Add(9);
         }
 
         private void BuildRow()
@@ -93,7 +159,7 @@ namespace S7_Dimat
                 if (dr.Read())
                 {
                     _name = dr.GetString(dr.GetOrdinal("Name"));
-                    _ip = dr.GetString(dr.GetOrdinal("Desc"));
+                    _ip = dr.GetString(dr.GetOrdinal("IP"));
                     _rack = dr.GetInt32(dr.GetOrdinal("Rack"));
                     _slot = dr.GetInt32(dr.GetOrdinal("Slot"));
 
@@ -153,6 +219,11 @@ namespace S7_Dimat
                             cmbtype.Items.Add("HEX");
                             cmbtype.Items.Add("FLOAT");
                         }
+
+                        if (cmbtype.Value == null)
+                        {
+                            cmbtype.Value = "BIN";
+                        }
                     }
                     else
                     {
@@ -167,5 +238,26 @@ namespace S7_Dimat
                 inputcell.Style = style;
             }
         }
+
+        private void dataGridView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                int act = dataGridView1.CurrentRow.Index;
+                int last = dataGridView1.RowCount - 1;
+
+                if (act == last)
+                {
+                    dataGridView1.Rows.Add();
+                }
+                else if (dataGridView1.Rows[act + 1].Cells[0].Value != null)
+                {
+                    dataGridView1.Rows.Insert(act+1);
+                    dataGridView1.CurrentCell = dataGridView1.Rows[act].Cells[dataGridView1.CurrentCell.ColumnIndex];
+                }
+            }
+        }
+
+
     }
 }

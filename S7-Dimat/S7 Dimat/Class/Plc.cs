@@ -25,8 +25,22 @@ namespace S7_Dimat.Class
             }
         }
 
+        public S7Type Type
+        {
+            set
+            {
+                PlcType = value;
+            }
+
+            get
+            {
+                return PlcType;
+            }
+        }
+
         public Plc(string Adrress, S7Type Plc)
         {
+            PlcType = Plc;
             switch (Plc)
             {
                 case S7Type.S7300:
@@ -79,7 +93,7 @@ namespace S7_Dimat.Class
             client.Disconnect();
         }
 
-        public void GetValue(string Value)
+        public byte[] GetValue(string Value)
         {
             Boolean Input = Value.StartsWith("I");
             Boolean Output = Value.StartsWith("Q");
@@ -118,17 +132,24 @@ namespace S7_Dimat.Class
                 DBNumber = SetDBnummber(Value);
             }
             
-           // return GetBuffer(Area, BufferSize, DBNumber, Start, Amount);
+            return GetBuffer(Area, BufferSize, DBNumber, Start, Amount, ReadBit);
 
         }
 
 
-        private byte[] GetBuffer(int S7Area, int BufferSize, int DBNumber, int Start, int Amount)
+        private byte[] GetBuffer(int S7Area, int BufferSize, int DBNumber, int Start, int Amount, Boolean ReadBit)
         {
-            int WordLen = BufferSize == 1 ? S7Consts.S7WLBit : 0;
-             WordLen = BufferSize == 2 ? S7Consts.S7WLWord : WordLen;
-             WordLen = BufferSize == 4 ? S7Consts.S7WLDWord : WordLen;
-
+            int WordLen = 0;
+            if (ReadBit)
+            {
+                WordLen = S7Consts.S7WLBit;
+            } else
+            {
+                WordLen = BufferSize == 1 ? S7Consts.S7WLByte : 0;
+                WordLen = BufferSize == 2 ? S7Consts.S7WLWord : WordLen;
+                WordLen = BufferSize == 4 ? S7Consts.S7WLDWord : WordLen;
+            }
+            
             byte[] buffer = new byte[BufferSize];
             client.ReadArea(S7Area, DBNumber, Start, Amount, WordLen, buffer);
             return buffer;
@@ -185,7 +206,7 @@ namespace S7_Dimat.Class
 
             if (ReadBit)
             {
-                val = ReadBit ? 1 : 0;
+                val = 1;
             } else {
 
                 string ReadLetter;
