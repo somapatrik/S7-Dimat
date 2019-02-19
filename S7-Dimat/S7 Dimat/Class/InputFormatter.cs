@@ -73,10 +73,10 @@ namespace S7_Dimat.Class
             Regex NormalWord = new Regex(@"[I,Q,M][W]\d+$", RegexOptions.IgnoreCase);
             Regex NormalDouble = new Regex(@"[I,Q,M][D]\d+$", RegexOptions.IgnoreCase);
 
-            Regex DBBit = new Regex(@"\DB.DBX\d+[.][0-7]$", RegexOptions.IgnoreCase);
-            Regex DBByte = new Regex(@"\DB.DB[B]\d+$", RegexOptions.IgnoreCase);
-            Regex DBWord = new Regex(@"\DB.DB[W]\d+$", RegexOptions.IgnoreCase);
-            Regex DBDouble = new Regex(@"\DB.DB[D]\d+$", RegexOptions.IgnoreCase);
+            Regex DBBit = new Regex(@"\DB\d+.DBX\d+[.][0-7]$", RegexOptions.IgnoreCase);
+            Regex DBByte = new Regex(@"\DB\d+.DB[B]\d+$", RegexOptions.IgnoreCase);
+            Regex DBWord = new Regex(@"\DB\d+.DB[W]\d+$", RegexOptions.IgnoreCase);
+            Regex DBDouble = new Regex(@"\DB\d+.DB[D]\d+$", RegexOptions.IgnoreCase);
             
             if (NormalBit.IsMatch(Adrr)) { nbit = true; Ok = true; return; }
             if (NormalByte.IsMatch(Adrr)) { nbyte = true; Ok = true; return; }
