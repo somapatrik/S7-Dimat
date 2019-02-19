@@ -29,6 +29,7 @@ namespace S7_Dimat
 
         private Thread mythread;
 
+
         public EditTableControl()
         {
             InitializeComponent();
@@ -37,20 +38,26 @@ namespace S7_Dimat
         public EditTableControl(int ID)
         {
             InitializeComponent();
-            // Načte z DB
+            // ID inside DB
             _id = ID;
             LoadPlc();
-            // Vytvoří datagrid
+            // Creates DGV
             CreateTable();
-            // Vlákno pro čtení
+            // Thread for reading values
             mythread = new Thread(new ThreadStart(ThreadWork));
-            // PLC globálně
+            // PLC global object
             _plc = new Plc(_ip, _rack, _slot);
             _plc.Type = _type;
 
         }
 
-        // Připojit
+
+        private void EditTableControl_Load(object sender, EventArgs e)
+        {
+            LoadGUI();
+        }
+
+        // Connect to PLC
         private void textToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!run)
@@ -58,9 +65,9 @@ namespace S7_Dimat
                 if (_plc.Connect())
                 {
                     run = true;
+                    toolStripStatusLabel1.Text = "Čtení zapnuto";
                     textToolStripMenuItem.Enabled = false;
                      mythread.Start();
-                    //_plc.test();
                 } else
                 {
                     MessageBox.Show("Nelze se připojit k PLC", "Chyba připojení PLC");
@@ -71,11 +78,7 @@ namespace S7_Dimat
         private void odpojitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             run = false;
-            //if (mythread.IsAlive)
-            //{
-            //    mythread.Abort();
-            //}
-            
+            toolStripStatusLabel1.Text = "Čtení vypnuto";
             textToolStripMenuItem.Enabled = true;
         }
 
@@ -87,13 +90,13 @@ namespace S7_Dimat
                 foreach (DataGridViewRow row in dataGridView1.Rows)
                 {
                     if (row.Cells["address"].Value != null)
-                    { 
+                    {
+                       
                         // Přečti řádek
                         string addr = row.Cells["address"].Value.ToString();
                         string format = row.Cells["format"].Value.ToString();
                         int rowindex = row.Index;
                         // Hodnota z PLC
-                        //string resvalue =System.Text.Encoding.UTF8.GetString(_plc.GetValue(addr));
                         string resvalue = _plc.GetValue(addr);
                         // Update datagridview
                         SendResult dResult = new SendResult(ShowResult);
@@ -141,15 +144,11 @@ namespace S7_Dimat
 
         }
 
-        private void EditTableControl_Load(object sender, EventArgs e)
-        {
-            LoadGUI();
-        }
-
         private void LoadGUI()
         {
             toolStripTextBox1.Text = _name;
             toolStripTextBox2.Text = _ip;
+            toolStripStatusLabel1.Text = "Čtení vypnuto";
         }
 
         private void LoadPlc()

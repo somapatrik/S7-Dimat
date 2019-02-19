@@ -147,8 +147,8 @@ namespace S7_Dimat.Class
             // WordLen
             WordLen = SetWordLen(ReadBit, BufferSize);
 
+            // Raw bytes
             byte[] buffer = new byte[BufferSize];
-
             buffer = GetBuffer(Area, BufferSize, DBNumber, Start, Amount, WordLen);
 
             return S7.GetBitAt(buffer, 0, 0).ToString();
