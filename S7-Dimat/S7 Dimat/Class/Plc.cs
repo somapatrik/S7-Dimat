@@ -93,7 +93,7 @@ namespace S7_Dimat.Class
             client.Disconnect();
         }
 
-        public byte[] GetValue(string Value)
+        public string GetValue(string Value)
         {
             Boolean Input = Value.StartsWith("I");
             Boolean Output = Value.StartsWith("Q");
@@ -103,7 +103,7 @@ namespace S7_Dimat.Class
             int Area = 0;
             int BufferSize;
             int Amount = 1;
-            int Start;
+            int Start = 0;
             int BitPosition;
             int DBNumber = 0;
 
@@ -125,14 +125,27 @@ namespace S7_Dimat.Class
             // Bit position
             if (ReadBit) { 
                 BitPosition = SetBitPosition(DB, Value);
+                Start = Start + BitPosition;
             }
 
             // Set DBnummber
             if (DB) { 
                 DBNumber = SetDBnummber(Value);
             }
-            
-            return GetBuffer(Area, BufferSize, DBNumber, Start, Amount, ReadBit);
+
+            byte[] buffer = new byte[BufferSize];
+
+            buffer = GetBuffer(Area, BufferSize, DBNumber, Start, Amount, ReadBit);
+
+            return S7.GetBitAt(buffer, 0, 0).ToString();
+
+        }
+
+        public void test()
+        {
+            byte[] buffer = new byte[1];
+            client.ReadArea(S7Consts.S7AreaPE, 0, 15, 1, S7Consts.S7WLBit, buffer);
+            Boolean b = S7.GetBitAt(buffer, 0, 5);
 
         }
 
@@ -191,11 +204,11 @@ namespace S7_Dimat.Class
                 // Start adrress for reading bit
                 if (!DB)
                 {
-                    return Int32.Parse(Value.Split('.')[0].Substring(1));
+                    return (Int32.Parse(Value.Split('.')[0].Substring(1)) * 8);
                 }
                 else
                 {
-                    return Int32.Parse(Value.Split('.')[1].Substring(3));
+                    return (Int32.Parse(Value.Split('.')[1].Substring(3)) * 8);
                 }
             }
         }

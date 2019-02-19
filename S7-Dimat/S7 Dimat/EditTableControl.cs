@@ -59,7 +59,8 @@ namespace S7_Dimat
                 {
                     run = true;
                     textToolStripMenuItem.Enabled = false;
-                    mythread.Start();
+                     mythread.Start();
+                    //_plc.test();
                 } else
                 {
                     MessageBox.Show("Nelze se připojit k PLC", "Chyba připojení PLC");
@@ -92,7 +93,8 @@ namespace S7_Dimat
                         string format = row.Cells["format"].Value.ToString();
                         int rowindex = row.Index;
                         // Hodnota z PLC
-                        string resvalue =System.Text.Encoding.UTF8.GetString(_plc.GetValue(addr));
+                        //string resvalue =System.Text.Encoding.UTF8.GetString(_plc.GetValue(addr));
+                        string resvalue = _plc.GetValue(addr);
                         // Update datagridview
                         SendResult dResult = new SendResult(ShowResult);
                         this.Invoke(dResult, rowindex, resvalue);
