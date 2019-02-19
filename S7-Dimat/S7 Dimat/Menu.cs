@@ -35,7 +35,6 @@ namespace S7_Dimat
                 while (dr.Read()) { 
                 TreeNode node = new TreeNode(dr.GetString(dr.GetOrdinal("Name")));
                 node.Tag = dr.GetInt32(dr.GetOrdinal("ID"));
-                   
                 treeView1.Nodes.Add(node);
                 }
             }
@@ -79,6 +78,41 @@ namespace S7_Dimat
             {
                 LoadTree();
             }
+        }
+
+        private void treeView1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                
+                Point p = new Point(e.X, e.Y);
+                TreeNode node = treeView1.GetNodeAt(p);
+                if (node != null)
+                {
+                    treeView1.SelectedNode = node;
+                    context_plclist.Show(treeView1, p);
+                }
+            }
+        }
+
+        private void smazatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Opravdu chcete smazat toto PLC?", "Fakt smazat?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            {
+                return;
+            }
+
+            int id = Convert.ToInt32(treeView1.SelectedNode.Tag);
+
+            if (id >= 0)
+            {
+                // Pak dodělat signály
+                DBLite db = new DBLite("delete from PLC where ID=@id");
+                db.AddParameter("id", id, DbType.Int32);
+                db.Exec();
+            }
+
+            LoadTree();
         }
     }
 }

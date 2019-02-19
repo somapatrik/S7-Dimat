@@ -37,11 +37,13 @@
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.pLCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.novéToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.context_plclist = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.smazatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.context_plclist.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -104,6 +106,7 @@
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(192, 688);
             this.treeView1.TabIndex = 0;
+            this.treeView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseUp);
             // 
             // pLCToolStripMenuItem
             // 
@@ -117,10 +120,19 @@
             this.novéToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.novéToolStripMenuItem.Text = "Přidat/Odebrat...";
             // 
-            // contextMenuStrip1
+            // context_plclist
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.context_plclist.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.smazatToolStripMenuItem});
+            this.context_plclist.Name = "contextMenuStrip1";
+            this.context_plclist.Size = new System.Drawing.Size(181, 48);
+            // 
+            // smazatToolStripMenuItem
+            // 
+            this.smazatToolStripMenuItem.Name = "smazatToolStripMenuItem";
+            this.smazatToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.smazatToolStripMenuItem.Text = "Smazat";
+            this.smazatToolStripMenuItem.Click += new System.EventHandler(this.smazatToolStripMenuItem_Click);
             // 
             // Menu
             // 
@@ -139,6 +151,7 @@
             this.splitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.context_plclist.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -154,6 +167,7 @@
         private System.Windows.Forms.ToolStripMenuItem novéToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pLCToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem přidatToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ContextMenuStrip context_plclist;
+        private System.Windows.Forms.ToolStripMenuItem smazatToolStripMenuItem;
     }
 }
