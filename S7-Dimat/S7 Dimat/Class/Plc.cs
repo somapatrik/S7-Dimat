@@ -93,7 +93,7 @@ namespace S7_Dimat.Class
             client.Disconnect();
         }
 
-        public string GetValue(string ValueRaw)
+        public byte[] GetValue(string ValueRaw)
         {
             string Value = ValueRaw.Trim();
 
@@ -151,10 +151,21 @@ namespace S7_Dimat.Class
             byte[] buffer = new byte[BufferSize];
             buffer = GetBuffer(Area, BufferSize, DBNumber, Start, Amount, WordLen);
 
-            return S7.GetBitAt(buffer, 0, 0).ToString();
+            return buffer;
 
         }
 
+        public string GetBitS(byte[] buffer)
+        {
+            Boolean b = S7.GetBitAt(buffer, 0, 0);
+            return b.ToString();
+        }
+
+        public string GetDecS(byte[] buffer)
+        {
+            int i = S7.GetIntAt(buffer,0);
+            return i.ToString();
+        }
 
         private byte[] GetBuffer(int S7Area, int BufferSize, int DBNumber, int Start, int Amount, int WordLen)
         {           

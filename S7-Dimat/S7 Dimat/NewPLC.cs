@@ -72,7 +72,7 @@ namespace S7_Dimat
                 if (!string.IsNullOrEmpty(txt_ip.Text))
                 {
                     pinger = new Ping();
-                    PingReply reply = pinger.Send(txt_ip.Text);
+                    PingReply reply = pinger.Send(txt_ip.Text, 3000);
                     if (reply.Status == IPStatus.Success)
                     {
                         string msg = "PLC je dosažitelné";

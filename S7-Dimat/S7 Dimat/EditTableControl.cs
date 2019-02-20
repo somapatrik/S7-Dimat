@@ -82,7 +82,7 @@ namespace S7_Dimat
             textToolStripMenuItem.Enabled = true;
         }
 
-        // Vlákno čtení
+        // Background reading
         private void ThreadWork()
         {
             while (run)
@@ -97,10 +97,11 @@ namespace S7_Dimat
                         string format = row.Cells["format"].Value.ToString();
                         int rowindex = row.Index;
                         // Hodnota z PLC
-                        string resvalue = _plc.GetValue(addr);
+                        byte[] resbyte = _plc.GetValue(addr);
+                        
                         // Update datagridview
                         SendResult dResult = new SendResult(ShowResult);
-                        this.Invoke(dResult, rowindex, resvalue);
+                        //this.Invoke(dResult, rowindex, resvalue);
                     }
                 }
                 Thread.Sleep(100);
@@ -201,11 +202,14 @@ namespace S7_Dimat
                     InputFormatter format = new InputFormatter(input);
                     if (format.IsValid)
                     {
+                        string defvalue = "BIN";
+
                         if (format.IsBit)
                         {
                             cmbtype.Items.Add("BIN");
                             cmbtype.Items.Add("BOOL");
-                            cmbtype.Items.Add("DEC");
+                            //cmbtype.Items.Add("DEC");
+                            defvalue = "BOOL";
                         }
                         else if (format.IsByte || format.IsWord)
                         {
@@ -223,7 +227,7 @@ namespace S7_Dimat
 
                         if (cmbtype.Value == null)
                         {
-                            cmbtype.Value = "BIN";
+                            cmbtype.Value = defvalue;
                         }
                     }
                     else
