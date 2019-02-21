@@ -29,11 +29,11 @@ namespace S7_Dimat
         private void LoadTree()
         {
             treeView1.Nodes.Clear();
-            DBLite db = new DBLite("select ID, Name from PLC");
+            DBLite db = new DBLite("select PLC.ID as ID, PLC.Name as Name, PLC_type.Name as Type from PLC left join PLC_Type on PLC.Type=PLC_type.ID");
             using (SQLiteDataReader dr = db.ExecReader())
             {
                 while (dr.Read()) { 
-                TreeNode node = new TreeNode(dr.GetString(dr.GetOrdinal("Name")));
+                TreeNode node = new TreeNode(dr.GetString(dr.GetOrdinal("Name")) + " [" + dr.GetString(dr.GetOrdinal("Type")) + "]");
                 node.Tag = dr.GetInt32(dr.GetOrdinal("ID"));
                 treeView1.Nodes.Add(node);
                 }

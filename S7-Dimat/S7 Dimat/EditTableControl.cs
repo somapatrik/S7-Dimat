@@ -91,29 +91,46 @@ namespace S7_Dimat
             {
                 foreach (DataGridViewRow row in dataGridView1.Rows)
                 {
-                    if (row.Cells["address"].Value != null)
+                    if (row.Cells["address"].Value != null && row.Cells["IsValid"].Value.ToString() == "1")
                     {
                        
                         // Přečti řádek
+                        string idrow = row.Cells["idrow"].Value.ToString();
                         string addr = row.Cells["address"].Value.ToString();
                         string format = row.Cells["format"].Value.ToString();
-                        int rowindex = row.Index;
+                        //int rowindex = row.Index;
                         // Hodnota z PLC
                         byte[] resbyte = _plc.GetValue(addr);
+                        // User output
+                        string resvalue = "";
+
+                        switch (format.ToUpper())
+                        {
+                            case "BOOL":
+                                resvalue = _plc.GetBitS(resbyte);
+                                break;
+                        }
                         
                         // Update datagridview
                         SendResult dResult = new SendResult(ShowResult);
-                        //this.Invoke(dResult, rowindex, resvalue);
+                        this.Invoke(dResult, idrow, resvalue);
                     }
                 }
                 Thread.Sleep(100);
             }
         }
 
-        private delegate void SendResult(int index, string result);
-        private void ShowResult(int index, string result)
+        private delegate void SendResult(string index, string result);
+        private void ShowResult(string index, string result)
         {
-            dataGridView1.Rows[index].Cells["result"].Value = result;
+            foreach(DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.Cells["idrow"].Value.ToString() == index)
+                {
+                    row.Cells["result"].Value = result;
+                    break;
+                }
+            }
         }
 
         private void CreateTable()
@@ -198,15 +215,16 @@ namespace S7_Dimat
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 1)
+
+            if (e.ColumnIndex == dataGridView1.Columns["address"].Index)
             {
+                dataGridView1.Rows[e.RowIndex].Cells["IsValid"].Value = "0";
 
                 DataGridViewCell inputcell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 string input = inputcell.Value == null ? "" : inputcell.Value.ToString();
                 DataGridViewCellStyle style = new DataGridViewCellStyle();
 
                 DataGridViewComboBoxCell cmbtype = (DataGridViewComboBoxCell)dataGridView1.Rows[e.RowIndex].Cells["format"];
-                cmbtype.Items.Clear();
 
                 if (!string.IsNullOrEmpty(input))
                 {
@@ -221,7 +239,7 @@ namespace S7_Dimat
 
                         if (format.IsBit)
                         {
-                            cmbtype.Items.Add("BIN");
+                            //cmbtype.Items.Add("BIN");
                             cmbtype.Items.Add("BOOL");
                             //cmbtype.Items.Add("DEC");
                             defvalue = "BOOL";
@@ -247,13 +265,15 @@ namespace S7_Dimat
                     }
                     else
                     {
-                        dataGridView1.Rows[e.RowIndex].Cells["IsValid"].Value = "0";
+                        cmbtype.Value = null;
+                        cmbtype.Items.Clear();
                         style.BackColor = Color.LightCoral;
                     }
                 }
                 else
                 {
-                    dataGridView1.Rows[e.RowIndex].Cells["IsValid"].Value = "0";
+                    cmbtype.Value = null;
+                    cmbtype.Items.Clear();
                     style.BackColor = Color.White;
                 }
 
