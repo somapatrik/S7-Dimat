@@ -30,6 +30,8 @@ namespace S7_Dimat
         private Thread mythread;
 
 
+        private List<int> usedrows = new List<int>(); 
+
         public EditTableControl()
         {
             InitializeComponent();
@@ -139,6 +141,16 @@ namespace S7_Dimat
             Result.ReadOnly = true;
             Result.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
+            DataGridViewTextBoxColumn valid = new DataGridViewTextBoxColumn();
+            valid.Name = "IsValid";
+            //valid.Visible = false;
+
+            DataGridViewTextBoxColumn idrow = new DataGridViewTextBoxColumn();
+            idrow.Name = "idrow";
+            //idrow.Visible = false;
+
+            dataGridView1.Columns.Add(idrow);
+            dataGridView1.Columns.Add(valid);
             dataGridView1.Columns.Add(Addr);
             dataGridView1.Columns.Add(cmb_ResulType);
             dataGridView1.Columns.Add(Result);
@@ -186,14 +198,14 @@ namespace S7_Dimat
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == 1)
             {
 
                 DataGridViewCell inputcell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 string input = inputcell.Value == null ? "" : inputcell.Value.ToString();
                 DataGridViewCellStyle style = new DataGridViewCellStyle();
 
-                DataGridViewComboBoxCell cmbtype = (DataGridViewComboBoxCell)dataGridView1.Rows[e.RowIndex].Cells[1];
+                DataGridViewComboBoxCell cmbtype = (DataGridViewComboBoxCell)dataGridView1.Rows[e.RowIndex].Cells["format"];
                 cmbtype.Items.Clear();
 
                 if (!string.IsNullOrEmpty(input))
@@ -202,7 +214,10 @@ namespace S7_Dimat
                     InputFormatter format = new InputFormatter(input);
                     if (format.IsValid)
                     {
-                        string defvalue = "BIN";
+
+                        dataGridView1.Rows[e.RowIndex].Cells["IsValid"].Value = "1";
+
+                        string defvalue = "DEC";
 
                         if (format.IsBit)
                         {
@@ -232,11 +247,13 @@ namespace S7_Dimat
                     }
                     else
                     {
+                        dataGridView1.Rows[e.RowIndex].Cells["IsValid"].Value = "0";
                         style.BackColor = Color.LightCoral;
                     }
                 }
                 else
                 {
+                    dataGridView1.Rows[e.RowIndex].Cells["IsValid"].Value = "0";
                     style.BackColor = Color.White;
                 }
 
@@ -255,7 +272,7 @@ namespace S7_Dimat
                 {
                     dataGridView1.Rows.Add();
                 }
-                else if (dataGridView1.Rows[act + 1].Cells[0].Value != null)
+                else if (dataGridView1.Rows[act + 1].Cells["address"].Value != null)
                 {
                     dataGridView1.Rows.Insert(act+1);
                     dataGridView1.CurrentCell = dataGridView1.Rows[act].Cells[dataGridView1.CurrentCell.ColumnIndex];
@@ -263,6 +280,27 @@ namespace S7_Dimat
             }
         }
 
+        private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            int index = 1;
 
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (row.Cells["idrow"].Value == null)
+                {
+                    while (usedrows.Contains(index))
+                    {
+                        index++;
+                    }
+                    dataGridView1.Rows[row.Index].Cells["idrow"].Value = index;
+                    usedrows.Add(index);
+                }
+            }
+        }
+
+        private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            usedrows.Remove(Convert.ToInt32(e.Row.Cells["idrow"].Value));
+        }
     }
 }
