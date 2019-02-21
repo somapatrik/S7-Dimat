@@ -45,8 +45,7 @@ namespace S7_Dimat
             LoadPlc();
             // Creates DGV
             CreateTable();
-            // Thread for reading values
-            mythread = new Thread(new ThreadStart(ThreadWork));
+
             // PLC global object
             _plc = new Plc(_ip, _rack, _slot);
             _plc.Type = _type;
@@ -62,8 +61,22 @@ namespace S7_Dimat
         // Connect to PLC
         private void textToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (mythread != null)
+            {
+                if (run)
+                {
+                    run = false;
+                }
+                while (mythread.IsAlive) { 
+                    
+                }
+            }
+
             if (!run)
-            {              
+            {
+                mythread = new Thread(new ThreadStart(ThreadWork));
+                //mythread.Start();
+
                 if (_plc.Connect())
                 {
                     run = true;
