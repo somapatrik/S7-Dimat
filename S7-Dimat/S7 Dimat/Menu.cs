@@ -116,9 +116,19 @@ namespace S7_Dimat
             {
                 TreeNode node = treeView1.SelectedNode;
                 int id = Convert.ToInt32(node.Tag);
-                splitContainer1.Panel2.Controls.Clear();
+
                 UserControl control = new EditTableControl(id);
                 control.Dock = DockStyle.Fill;
+
+                // Close old control with respect
+                if (splitContainer1.Panel2.Controls.Count > 0)
+                {
+                    EditTableControl old = (EditTableControl)splitContainer1.Panel2.Controls["EditTableControl"];
+                    old.EasyClose();
+                }
+
+                splitContainer1.Panel2.Controls.Clear();
+
                 splitContainer1.Panel2.Controls.Add(control);
             }
         }

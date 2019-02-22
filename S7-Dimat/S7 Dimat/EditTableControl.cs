@@ -15,7 +15,6 @@ namespace S7_Dimat
 {
     public partial class EditTableControl : UserControl
     {
-
         private int _id;
         private string _name;
         private string _ip;
@@ -25,10 +24,22 @@ namespace S7_Dimat
         private Plc _plc;
         private Plc.S7Type _type;
 
-        private Boolean run;
+        private Boolean irun;
+
+        private Boolean run
+        {
+            set
+            {
+                irun = value;
+                toolStripStatusLabel1.Text = value ? "Skenování PLC" : "";
+            }
+            get
+            {
+                return irun;
+            }
+        }
 
         private Thread mythread;
-
 
         private List<int> usedrows = new List<int>(); 
 
@@ -52,10 +63,16 @@ namespace S7_Dimat
 
         }
 
-
         private void EditTableControl_Load(object sender, EventArgs e)
         {
             LoadGUI();
+        }
+
+        private void LoadGUI()
+        {
+            toolStripTextBox1.Text = _name;
+            toolStripTextBox2.Text = _ip;
+            //toolStripStatusLabel1.Text = "Čtení vypnuto";
         }
 
         // Connect to PLC
@@ -75,12 +92,11 @@ namespace S7_Dimat
             if (!run)
             {
                 mythread = new Thread(new ThreadStart(ThreadWork));
-                //mythread.Start();
 
                 if (_plc.Connect())
                 {
                     run = true;
-                    toolStripStatusLabel1.Text = "Čtení zapnuto";
+                    //toolStripStatusLabel1.Text = "Čtení zapnuto";
                     textToolStripMenuItem.Enabled = false;
                      mythread.Start();
                 } else
@@ -93,7 +109,7 @@ namespace S7_Dimat
         private void odpojitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             run = false;
-            toolStripStatusLabel1.Text = "Čtení vypnuto";
+            //toolStripStatusLabel1.Text = "Čtení vypnuto";
             textToolStripMenuItem.Enabled = true;
         }
 
@@ -116,11 +132,14 @@ namespace S7_Dimat
                         byte[] resbyte = _plc.GetValue(addr);
                         // User output
                         string resvalue = "";
-
+                        // Read in format
                         switch (format.ToUpper())
                         {
                             case "BOOL":
                                 resvalue = _plc.GetBitS(resbyte);
+                                break;
+                            default:
+                                resvalue = "Chyba formátu";
                                 break;
                         }
                         
@@ -149,12 +168,11 @@ namespace S7_Dimat
         private void CreateTable()
         {
             BuildRow();
-            dataGridView1.Rows.Add(9);
+            //dataGridView1.Rows.Add(9);
         }
 
         private void BuildRow()
         {
-
             DataTable dt = new DataTable();
 
             DataGridViewComboBoxColumn cmb_ResulType = new DataGridViewComboBoxColumn();
@@ -184,14 +202,6 @@ namespace S7_Dimat
             dataGridView1.Columns.Add(Addr);
             dataGridView1.Columns.Add(cmb_ResulType);
             dataGridView1.Columns.Add(Result);
-
-        }
-
-        private void LoadGUI()
-        {
-            toolStripTextBox1.Text = _name;
-            toolStripTextBox2.Text = _ip;
-            toolStripStatusLabel1.Text = "Čtení vypnuto";
         }
 
         private void LoadPlc()
@@ -334,6 +344,22 @@ namespace S7_Dimat
         private void dataGridView1_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
         {
             usedrows.Remove(Convert.ToInt32(e.Row.Cells["idrow"].Value));
+        }
+
+        public void EasyClose()
+        {
+            if (mythread != null)
+            {
+                run = false;
+                if (mythread.IsAlive)
+                {
+                    Thread.Sleep(100);
+                    if (mythread.IsAlive)
+                    {
+                        mythread.Abort();
+                    }
+                }
+            }
         }
     }
 }

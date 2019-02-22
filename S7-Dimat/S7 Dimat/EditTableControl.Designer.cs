@@ -40,6 +40,7 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.uložitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -52,7 +53,8 @@
             this.toolStripTextBox1,
             this.toolStripTextBox2,
             this.textToolStripMenuItem,
-            this.odpojitToolStripMenuItem});
+            this.odpojitToolStripMenuItem,
+            this.uložitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(752, 27);
@@ -127,6 +129,14 @@
             // 
             this.timer1.Interval = 500;
             // 
+            // uložitToolStripMenuItem
+            // 
+            this.uložitToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.uložitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("uložitToolStripMenuItem.Image")));
+            this.uložitToolStripMenuItem.Name = "uložitToolStripMenuItem";
+            this.uložitToolStripMenuItem.Size = new System.Drawing.Size(113, 23);
+            this.uložitToolStripMenuItem.Text = "Uložit signály";
+            // 
             // EditTableControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -159,5 +169,6 @@
         private System.Windows.Forms.ToolStripMenuItem odpojitToolStripMenuItem;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripMenuItem uložitToolStripMenuItem;
     }
 }
