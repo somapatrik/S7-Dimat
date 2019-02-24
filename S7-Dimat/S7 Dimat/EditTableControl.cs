@@ -136,7 +136,7 @@ namespace S7_Dimat
                         switch (format.ToUpper())
                         {
                             case "BOOL":
-                                resvalue = _plc.GetBitS(resbyte);
+                                resvalue = _plc.GetBooltS(resbyte);
                                 break;
                             default:
                                 resvalue = "Chyba formátu";

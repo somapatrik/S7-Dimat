@@ -155,7 +155,7 @@ namespace S7_Dimat.Class
 
         }
 
-        public string GetBitS(byte[] buffer)
+        public string GetBooltS(byte[] buffer)
         {
             Boolean b = S7.GetBitAt(buffer, 0, 0);
             return b.ToString();

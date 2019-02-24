@@ -16,6 +16,10 @@ namespace S7_Dimat
 {
     public partial class NewPLC : Form
     {
+
+        public Boolean Edit = false;
+        public int ID;
+
         public NewPLC()
         {
             InitializeComponent();
@@ -24,8 +28,33 @@ namespace S7_Dimat
         private void NewPLC_Load(object sender, EventArgs e)
         {
             LoadTypes();
+
+            if (Edit)
+            {
+                btn_ok.Text = "Změnit";
+                Text = "Změnit PLC";
+                LoadPLC();
+            }
         }
 
+        private void LoadPLC()
+        {
+            DBLite db = new DBLite("SELECT Name,Desc,IP,Rack,Slot,Type FROM PLC where ID=@id");
+            db.AddParameter("id",ID, DbType.Int32);
+            using (SQLiteDataReader dr = db.ExecReader())
+            {
+                if (dr.Read())
+                { 
+                    txt_name.Text = dr.GetString(dr.GetOrdinal("Name"));
+                    txt_ip.Text = dr.GetString(dr.GetOrdinal("IP"));
+                    txt_desc.Text = dr.GetValue(dr.GetOrdinal("Desc")) == DBNull.Value ? "" : dr.GetString(dr.GetOrdinal("Desc"));
+                    combo_typ.SelectedValue = dr.GetString(dr.GetOrdinal("Type"));
+                    rack.Value = dr.GetInt32(dr.GetOrdinal("Rack"));
+                    slot.Value = dr.GetInt32(dr.GetOrdinal("Slot"));
+                }
+            }
+        }
+        
         private void LoadTypes()
         {
             combo_typ.Items.Clear();
@@ -151,8 +180,17 @@ namespace S7_Dimat
 
         private Boolean PLCExists()
         {
-            DBLite db = new DBLite("select * from PLC where Name like @name");
+            string query = "select * from PLC where Name like @name";
+            if (Edit)
+            {
+                query = "select * from PLC where Name like @name and ID<>@id";
+            } 
+            DBLite db = new DBLite(query);
             db.AddParameter("name", txt_name.Text, DbType.String);
+            if (Edit)
+            {
+                db.AddParameter("id", ID, DbType.Int32);
+            }
             using (SQLiteDataReader dr = db.ExecReader())
             {
                 if (dr.HasRows)
@@ -160,7 +198,6 @@ namespace S7_Dimat
                     return true;
                 }
             }
-
             return false;
         }
 
@@ -178,23 +215,44 @@ namespace S7_Dimat
                         }
                     }
 
-                    if (!PLCExists())
-                    {
+                    if (!Edit)
+                    { 
+                        if (!PLCExists())
+                        {
 
-                            DBLite db = new DBLite("insert into PLC values (null, @name, ifnull(@desc,''), @ip, @r, @s, @type)");
+                                DBLite db = new DBLite("insert into PLC values (null, @name, ifnull(@desc,''), @ip, @r, @s, @type)");
+                                db.AddParameter("name", txt_name.Text, DbType.String);
+                                db.AddParameter("desc", txt_desc.Text, DbType.String);
+                                db.AddParameter("ip", txt_ip.Text, DbType.String);
+                                db.AddParameter("r", rack.Value, DbType.Int32);
+                                db.AddParameter("s", slot.Value, DbType.Int32);
+                                db.AddParameter("type", combo_typ.SelectedValue.ToString(), DbType.String);
+                                db.Exec();
+                                this.DialogResult = DialogResult.OK;
+                        } else
+                        {
+                            MessageBox.Show("PLC s tímto názvem už existuje", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    } else
+                    {
+                        if (!PLCExists())
+                        {
+                            DBLite db = new DBLite("update PLC set Name=@name, Desc=@desc, IP=@ip, Rack=@r, Slot=@s, Type=@type where ID=@id ");
                             db.AddParameter("name", txt_name.Text, DbType.String);
                             db.AddParameter("desc", txt_desc.Text, DbType.String);
                             db.AddParameter("ip", txt_ip.Text, DbType.String);
                             db.AddParameter("r", rack.Value, DbType.Int32);
                             db.AddParameter("s", slot.Value, DbType.Int32);
                             db.AddParameter("type", combo_typ.SelectedValue.ToString(), DbType.String);
+                            db.AddParameter("id", ID, DbType.Int32);
                             db.Exec();
                             this.DialogResult = DialogResult.OK;
-                    } else
-                    {
-                        MessageBox.Show("PLC s tímto názvem už existuje", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            MessageBox.Show("PLC s tímto názvem už existuje", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-
                 }
 
             } catch (Exception ex)

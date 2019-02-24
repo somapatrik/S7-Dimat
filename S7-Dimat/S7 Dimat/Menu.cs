@@ -141,5 +141,16 @@ namespace S7_Dimat
                 LoadTree();
             }
         }
+
+        private void změnitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewPLC edit = new NewPLC();
+            edit.Edit = true;
+            edit.ID = Convert.ToInt32(treeView1.SelectedNode.Tag);
+            if (edit.ShowDialog() == DialogResult.OK)
+            {
+                LoadTree();
+            }
+        }
     }
 }

@@ -35,12 +35,12 @@
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
             this.textToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.odpojitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uložitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.uložitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -95,6 +95,14 @@
             this.odpojitToolStripMenuItem.Text = "Odpojit";
             this.odpojitToolStripMenuItem.Click += new System.EventHandler(this.odpojitToolStripMenuItem_Click);
             // 
+            // uložitToolStripMenuItem
+            // 
+            this.uložitToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.uložitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("uložitToolStripMenuItem.Image")));
+            this.uložitToolStripMenuItem.Name = "uložitToolStripMenuItem";
+            this.uložitToolStripMenuItem.Size = new System.Drawing.Size(113, 23);
+            this.uložitToolStripMenuItem.Text = "Uložit signály";
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -114,6 +122,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.Gainsboro;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 27);
@@ -128,14 +137,6 @@
             // timer1
             // 
             this.timer1.Interval = 500;
-            // 
-            // uložitToolStripMenuItem
-            // 
-            this.uložitToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.uložitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("uložitToolStripMenuItem.Image")));
-            this.uložitToolStripMenuItem.Name = "uložitToolStripMenuItem";
-            this.uložitToolStripMenuItem.Size = new System.Drawing.Size(113, 23);
-            this.uložitToolStripMenuItem.Text = "Uložit signály";
             // 
             // EditTableControl
             // 
