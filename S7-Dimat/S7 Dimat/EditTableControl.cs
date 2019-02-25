@@ -194,11 +194,11 @@ namespace S7_Dimat
 
             DataGridViewTextBoxColumn valid = new DataGridViewTextBoxColumn();
             valid.Name = "IsValid";
-            //valid.Visible = false;
+            valid.Visible = false;
 
             DataGridViewTextBoxColumn idrow = new DataGridViewTextBoxColumn();
             idrow.Name = "idrow";
-            //idrow.Visible = false;
+            idrow.Visible = false;
 
             dataGridView1.Columns.Add(idrow);
             dataGridView1.Columns.Add(valid);
