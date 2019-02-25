@@ -24,6 +24,9 @@ namespace S7_Dimat
         private Plc _plc;
         private Plc.S7Type _type;
 
+        private Thread mythread;
+        private List<int> usedrows = new List<int>();
+
         private Boolean irun;
 
         private Boolean run
@@ -39,10 +42,6 @@ namespace S7_Dimat
             }
         }
 
-        private Thread mythread;
-
-        private List<int> usedrows = new List<int>(); 
-
         public EditTableControl()
         {
             InitializeComponent();
@@ -51,6 +50,7 @@ namespace S7_Dimat
         public EditTableControl(int ID)
         {
             InitializeComponent();
+
             // ID inside DB
             _id = ID;
             LoadPlc();
@@ -60,7 +60,6 @@ namespace S7_Dimat
             // PLC global object
             _plc = new Plc(_ip, _rack, _slot);
             _plc.Type = _type;
-
         }
 
         private void EditTableControl_Load(object sender, EventArgs e)
@@ -96,7 +95,6 @@ namespace S7_Dimat
                 if (_plc.Connect())
                 {
                     run = true;
-                    //toolStripStatusLabel1.Text = "Čtení zapnuto";
                     textToolStripMenuItem.Enabled = false;
                      mythread.Start();
                 } else
@@ -109,7 +107,6 @@ namespace S7_Dimat
         private void odpojitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             run = false;
-            //toolStripStatusLabel1.Text = "Čtení vypnuto";
             textToolStripMenuItem.Enabled = true;
         }
 
@@ -140,6 +137,9 @@ namespace S7_Dimat
                                 break;
                             case "DEC":
                                 resvalue = _plc.GetDecS(resbyte);
+                                break;
+                            case "BIN":
+                                resvalue = _plc.GetBinS(resbyte);
                                 break;
                             default:
                                 resvalue = "Chyba formátu";
@@ -262,6 +262,8 @@ namespace S7_Dimat
                         dataGridView1.Rows[e.RowIndex].Cells["IsValid"].Value = "1";
 
                         string defvalue = "DEC";
+                        cmbtype.Value = null;
+                        cmbtype.Items.Clear();
 
                         if (format.IsBit)
                         {
@@ -274,14 +276,14 @@ namespace S7_Dimat
                         {
                             cmbtype.Items.Add("BIN");
                             cmbtype.Items.Add("DEC");
-                            cmbtype.Items.Add("HEX");
+                           // cmbtype.Items.Add("HEX");
                         }
-                        else if (format.IsWord)
+                        else if (format.IsDouble)
                         {
                             cmbtype.Items.Add("BIN");
                             cmbtype.Items.Add("DEC");
-                            cmbtype.Items.Add("HEX");
-                            cmbtype.Items.Add("FLOAT");
+                           /// cmbtype.Items.Add("HEX");
+                           // cmbtype.Items.Add("FLOAT");
                         }
 
                         if (cmbtype.Value == null)

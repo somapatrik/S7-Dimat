@@ -181,6 +181,12 @@ namespace S7_Dimat.Class
             return i;
         }
 
+        public string GetBinS(byte[] buffer)
+        {
+            string s = string.Join(" ", buffer.Select(x => Convert.ToString(x, 2).PadLeft(8, '0')));
+            return s;
+        }
+
         private byte[] GetBuffer(int S7Area, int BufferSize, int DBNumber, int Start, int Amount, int WordLen)
         {           
             byte[] buffer = new byte[BufferSize];

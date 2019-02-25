@@ -62,7 +62,7 @@ namespace S7_Dimat.Class
 
         public InputFormatter(string input)
         {
-            Adrr = input.ToUpper().Trim();
+            Adrr = input.ToUpper().Trim().Replace(" ","");
             CheckAdrr();
         }
 
