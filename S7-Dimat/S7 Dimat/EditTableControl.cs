@@ -72,7 +72,7 @@ namespace S7_Dimat
         {
             toolStripTextBox1.Text = _name;
             toolStripTextBox2.Text = _ip;
-            //toolStripStatusLabel1.Text = "Čtení vypnuto";
+            toolStripStatusLabel1.Text = "";
         }
 
         // Connect to PLC
@@ -137,6 +137,9 @@ namespace S7_Dimat
                         {
                             case "BOOL":
                                 resvalue = _plc.GetBooltS(resbyte);
+                                break;
+                            case "DEC":
+                                resvalue = _plc.GetDecS(resbyte);
                                 break;
                             default:
                                 resvalue = "Chyba formátu";

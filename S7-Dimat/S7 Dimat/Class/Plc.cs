@@ -163,8 +163,22 @@ namespace S7_Dimat.Class
 
         public string GetDecS(byte[] buffer)
         {
-            int i = S7.GetIntAt(buffer,0);
-            return i.ToString();
+            string i = "Chyba čtení";
+
+            switch (buffer.Length)
+            {
+                case 1:
+                    i = S7.GetSIntAt(buffer, 0).ToString();
+                    break;
+                case 2:
+                    i = S7.GetIntAt(buffer, 0).ToString();
+                    break;
+                case 4:
+                    i = S7.GetDIntAt(buffer, 0).ToString();
+                    break;
+            }
+
+            return i;
         }
 
         private byte[] GetBuffer(int S7Area, int BufferSize, int DBNumber, int Start, int Amount, int WordLen)
