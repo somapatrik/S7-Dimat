@@ -187,6 +187,19 @@ namespace S7_Dimat.Class
             return s;
         }
 
+        public string GetFloatS(byte[] buffer)
+        {
+            string i = "";
+            switch (buffer.Length)
+            {
+                case 4:
+                    i = S7.GetRealAt(buffer, 0).ToString();
+                    break;
+            }
+            return i;
+        }
+
+
         private byte[] GetBuffer(int S7Area, int BufferSize, int DBNumber, int Start, int Amount, int WordLen)
         {           
             byte[] buffer = new byte[BufferSize];

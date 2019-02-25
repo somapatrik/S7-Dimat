@@ -83,8 +83,10 @@ namespace S7_Dimat
                 {
                     run = false;
                 }
-                while (mythread.IsAlive) { 
-                    
+
+                if (mythread.IsAlive)
+                {
+                    Thread.Sleep(100);
                 }
             }
 
@@ -140,6 +142,9 @@ namespace S7_Dimat
                                 break;
                             case "BIN":
                                 resvalue = _plc.GetBinS(resbyte);
+                                break;
+                            case "FLOAT":
+                                resvalue = _plc.GetFloatS(resbyte);
                                 break;
                             default:
                                 resvalue = "Chyba formátu";
@@ -283,7 +288,7 @@ namespace S7_Dimat
                             cmbtype.Items.Add("BIN");
                             cmbtype.Items.Add("DEC");
                            /// cmbtype.Items.Add("HEX");
-                           // cmbtype.Items.Add("FLOAT");
+                           cmbtype.Items.Add("FLOAT");
                         }
 
                         if (cmbtype.Value == null)
@@ -362,6 +367,13 @@ namespace S7_Dimat
                     if (mythread.IsAlive)
                     {
                         mythread.Abort();
+                        if (_plc != null)
+                        {
+                            if (_plc.Connected)
+                            {
+                                _plc.Disconnect();
+                            }
+                        }
                     }
                 }
             }
