@@ -191,6 +191,10 @@ namespace S7_Dimat
             Addr.HeaderText = "Adresa";
             Addr.Name = "address";
 
+            DataGridViewTextBoxColumn label = new DataGridViewTextBoxColumn();
+            label.HeaderText = "Popisek";
+            label.Name = "desc";
+
             DataGridViewTextBoxColumn Result = new DataGridViewTextBoxColumn();
             Result.HeaderText = "Výsledek";
             Result.Name = "result";
@@ -208,6 +212,7 @@ namespace S7_Dimat
             dataGridView1.Columns.Add(idrow);
             dataGridView1.Columns.Add(valid);
             dataGridView1.Columns.Add(Addr);
+            dataGridView1.Columns.Add(label);
             dataGridView1.Columns.Add(cmb_ResulType);
             dataGridView1.Columns.Add(Result);
         }
