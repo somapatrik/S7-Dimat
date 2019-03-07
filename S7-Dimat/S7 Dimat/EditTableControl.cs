@@ -68,6 +68,7 @@ namespace S7_Dimat
             LoadSignals();
         }
 
+        // TODO: Musí nahrát i neviditelné řádky
         private void LoadSignals()
         {
             int plcid = GetPlcID();
@@ -102,7 +103,7 @@ namespace S7_Dimat
                         repre = dr.GetString(dr.GetOrdinal("repre"));
                     }
 
-                    dataGridView1.Rows[newrow].Cells["address"].Value = addr;
+                    dataGridView1.Rows[newrow].Cells["address"].Value = string.IsNullOrEmpty(addr) ? null : addr;
                     dataGridView1.Rows[newrow].Cells["desc"].Value = desc;
 
                     if (!string.IsNullOrEmpty(addr))
@@ -148,6 +149,7 @@ namespace S7_Dimat
                 {
                     run = true;
                     textToolStripMenuItem.Enabled = false;
+                    uložitToolStripMenuItem.Enabled = false;
                      mythread.Start();
                 } else
                 {
@@ -160,6 +162,7 @@ namespace S7_Dimat
         {
             run = false;
             textToolStripMenuItem.Enabled = true;
+            uložitToolStripMenuItem.Enabled = true;
         }
 
         // Background reading
@@ -253,11 +256,11 @@ namespace S7_Dimat
 
             DataGridViewTextBoxColumn valid = new DataGridViewTextBoxColumn();
             valid.Name = "IsValid";
-            valid.Visible = false;
+            //valid.Visible = false;
 
             DataGridViewTextBoxColumn idrow = new DataGridViewTextBoxColumn();
             idrow.Name = "idrow";
-            idrow.Visible = false;
+            //idrow.Visible = false;
 
             dataGridView1.Columns.Add(idrow);
             dataGridView1.Columns.Add(valid);
