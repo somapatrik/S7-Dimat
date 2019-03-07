@@ -37,10 +37,10 @@
             this.pLCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.novéToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.context_plclist = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.změnitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smazatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.context_new = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.novéToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.změnitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -113,12 +113,19 @@
             this.změnitToolStripMenuItem,
             this.smazatToolStripMenuItem});
             this.context_plclist.Name = "contextMenuStrip1";
-            this.context_plclist.Size = new System.Drawing.Size(181, 70);
+            this.context_plclist.Size = new System.Drawing.Size(122, 48);
+            // 
+            // změnitToolStripMenuItem
+            // 
+            this.změnitToolStripMenuItem.Name = "změnitToolStripMenuItem";
+            this.změnitToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.změnitToolStripMenuItem.Text = "Změnit...";
+            this.změnitToolStripMenuItem.Click += new System.EventHandler(this.změnitToolStripMenuItem_Click);
             // 
             // smazatToolStripMenuItem
             // 
             this.smazatToolStripMenuItem.Name = "smazatToolStripMenuItem";
-            this.smazatToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.smazatToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.smazatToolStripMenuItem.Text = "Smazat";
             this.smazatToolStripMenuItem.Click += new System.EventHandler(this.smazatToolStripMenuItem_Click);
             // 
@@ -136,13 +143,6 @@
             this.novéToolStripMenuItem1.Text = "Přidat...";
             this.novéToolStripMenuItem1.Click += new System.EventHandler(this.novéToolStripMenuItem1_Click);
             // 
-            // změnitToolStripMenuItem
-            // 
-            this.změnitToolStripMenuItem.Name = "změnitToolStripMenuItem";
-            this.změnitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.změnitToolStripMenuItem.Text = "Změnit...";
-            this.změnitToolStripMenuItem.Click += new System.EventHandler(this.změnitToolStripMenuItem_Click);
-            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -156,6 +156,7 @@
             this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "S7-Dimat";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Menu_FormClosing);
             this.Load += new System.EventHandler(this.Menu_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

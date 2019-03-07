@@ -152,5 +152,15 @@ namespace S7_Dimat
                 LoadTree();
             }
         }
+
+        private void Menu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Close old control with respect
+            if (splitContainer1.Panel2.Controls.Count > 0)
+            {
+                EditTableControl old = (EditTableControl)splitContainer1.Panel2.Controls["EditTableControl"];
+                old.EasyClose();
+            }
+        }
     }
 }
