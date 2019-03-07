@@ -65,6 +65,56 @@ namespace S7_Dimat
         private void EditTableControl_Load(object sender, EventArgs e)
         {
             LoadGUI();
+            LoadSignals();
+        }
+
+        private void LoadSignals()
+        {
+            int plcid = GetPlcID();
+
+            DBLite db = new DBLite("select Addr, Desc, repre from PLC_Signal where PLC=@id");
+            db.AddParameter("id", plcid, DbType.Int32);
+            using (SQLiteDataReader dr = db.ExecReader())
+            {
+                while (dr.Read())
+                {
+                    dataGridView1.Rows.Add();
+                    int newrow = dataGridView1.Rows.Count - 2;
+
+                    string addr = "";
+                    string desc = "";
+                    string repre = "";
+
+                    if (!dr["Addr"].Equals(DBNull.Value))
+                    {
+                        addr = dr.GetString(dr.GetOrdinal("Addr"));
+                    }
+
+
+                    if (!dr["Desc"].Equals(DBNull.Value))
+                    {
+                        desc = dr.GetString(dr.GetOrdinal("Desc"));
+                    }
+
+
+                    if (!dr["repre"].Equals(DBNull.Value))
+                    {
+                        repre = dr.GetString(dr.GetOrdinal("repre"));
+                    }
+
+                    dataGridView1.Rows[newrow].Cells["address"].Value = addr;
+                    dataGridView1.Rows[newrow].Cells["desc"].Value = desc;
+
+                    if (!string.IsNullOrEmpty(addr))
+                    {
+                        dataGridView1_CellEndEdit(dataGridView1, new DataGridViewCellEventArgs(dataGridView1.Rows[newrow].Cells["address"].ColumnIndex, dataGridView1.Rows[newrow].Index));
+                    }
+
+                    dataGridView1.Rows[newrow].Cells["format"].Value = repre.ToUpper();
+                    
+                }
+                dataGridView1.Update();
+            }
         }
 
         private void LoadGUI()
