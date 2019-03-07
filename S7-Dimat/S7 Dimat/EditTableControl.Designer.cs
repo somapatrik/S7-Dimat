@@ -102,6 +102,7 @@
             this.uložitToolStripMenuItem.Name = "uložitToolStripMenuItem";
             this.uložitToolStripMenuItem.Size = new System.Drawing.Size(113, 23);
             this.uložitToolStripMenuItem.Text = "Uložit signály";
+            this.uložitToolStripMenuItem.Click += new System.EventHandler(this.uložitToolStripMenuItem_Click);
             // 
             // statusStrip1
             // 

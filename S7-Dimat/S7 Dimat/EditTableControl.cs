@@ -383,5 +383,70 @@ namespace S7_Dimat
                 }
             }
         }
+
+        private void uložitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int plcid = GetPlcID();
+            DeleteSignals(plcid);
+            SaveSignals(plcid);
+        }
+
+        private void SaveSignals(int PlcID)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows) {
+
+                string desc = "";
+                string repre = "";
+                string addr = "";
+
+                if (row.Cells["desc"].Value != null)
+                {
+                    desc = row.Cells["desc"].Value.ToString();
+                }
+
+                if (row.Cells["address"].Value != null)
+                {
+                    addr = row.Cells["address"].Value.ToString();
+                }
+
+                if (row.Cells["format"].Value != null)
+                {
+                    repre = row.Cells["format"].Value.ToString();
+                }
+                
+
+                DBLite db = new DBLite("insert into PLC_Signal values (@id, @addr, @desc, @repre)");
+                db.AddParameter("id", this._id, DbType.Int32);
+                db.AddParameter("addr", addr, DbType.String);
+                db.AddParameter("desc", desc, DbType.String);
+                db.AddParameter("repre", repre.ToLower(), DbType.String);
+                db.Exec();
+                db = null;
+            }
+        }
+
+        private int GetPlcID()
+        {
+            int id = 0;
+            DBLite db = new DBLite("select ID from PLC where Name like @name and IP like @ip");
+            db.AddParameter("name", this._name, DbType.String);
+            db.AddParameter("ip", this._ip, DbType.String);
+            using (SQLiteDataReader dr = db.ExecReader())
+            {
+                if (dr.Read())
+                {
+                    id = dr.GetInt32(0);
+                }
+            }
+
+            return id;
+        }
+
+        private void DeleteSignals(int PlcID)
+        {
+            DBLite db = new DBLite("delete from PLC_Signal where PLC=@id");
+            db.AddParameter("id", PlcID, DbType.Int32);
+            db.Exec();
+        }
     }
 }
