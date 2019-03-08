@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using S7_Dimat.Class;
 using System.Data.SQLite;
 using System.Threading;
+using System.Net.NetworkInformation;
 
 namespace S7_Dimat
 {
@@ -25,6 +26,8 @@ namespace S7_Dimat
         private Plc.S7Type _type;
 
         private Thread mythread;
+        private Thread pingthread;
+
         private List<int> usedrows = new List<int>();
 
         private Boolean irun;
@@ -35,6 +38,7 @@ namespace S7_Dimat
             {
                 irun = value;
                 toolStripStatusLabel1.Text = value ? "Skenování PLC" : "";
+                statusStrip1.BackColor = value ? Color.LawnGreen : Color.Orange;
             }
             get
             {
@@ -144,13 +148,15 @@ namespace S7_Dimat
             if (!run)
             {
                 mythread = new Thread(new ThreadStart(ThreadWork));
+                pingthread = new Thread(new ThreadStart(PingThread));
 
                 if (_plc.Connect())
                 {
                     run = true;
                     textToolStripMenuItem.Enabled = false;
                     uložitToolStripMenuItem.Enabled = false;
-                     mythread.Start();
+                    mythread.Start();
+                    pingthread.Start();
                 } else
                 {
                     MessageBox.Show("Nelze se připojit k PLC", "Chyba připojení PLC");
@@ -165,11 +171,34 @@ namespace S7_Dimat
             uložitToolStripMenuItem.Enabled = true;
         }
 
+        private void PingThread()
+        {
+            while (run)
+            {
+                Ping ping = new Ping();
+                try
+                {
+                    PingReply reply = ping.Send(this._ip,1000);
+                    if (reply.Status != IPStatus.Success)
+                    {
+                        run = false;
+                        return;
+                    }
+                } catch (Exception ex)
+                {
+                    run = false;
+                    return;
+                }
+                Thread.Sleep(3000);
+            }
+        }
+
         // Background reading
         private void ThreadWork()
         {
             while (run)
             {
+
                 foreach (DataGridViewRow row in dataGridView1.Rows)
                 {
                     if (row.Cells["address"].Value != null && row.Cells["IsValid"].Value.ToString() == "1")

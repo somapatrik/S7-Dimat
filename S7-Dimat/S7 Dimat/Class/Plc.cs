@@ -38,6 +38,8 @@ namespace S7_Dimat.Class
             }
         }
 
+
+
         public Plc(string Adrress, S7Type Plc)
         {
             PlcType = Plc;
