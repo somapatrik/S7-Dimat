@@ -37,7 +37,7 @@ namespace S7_Dimat
             set
             {
                 irun = value;
-                toolStripStatusLabel1.Text = value ? "Skenování PLC" : "";
+                //toolStripStatusLabel1.Text = value ? "" : "";
                 statusStrip1.BackColor = value ? Color.LawnGreen : Color.Orange;
             }
             get
@@ -127,6 +127,25 @@ namespace S7_Dimat
             toolStripTextBox1.Text = _name;
             toolStripTextBox2.Text = _ip;
             toolStripStatusLabel1.Text = "";
+
+            LoadPlotter();
+        }
+
+        private void LoadPlotter()
+        {
+            chart1.BackColor = Color.Black;
+            chart1.ForeColor = Color.White;
+            chart1.ChartAreas[0].BackColor = Color.Black;
+            chart1.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.White;
+            chart1.ChartAreas[0].AxisX.LineColor = Color.White;
+            chart1.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.White;
+            chart1.ChartAreas[0].AxisY.LineColor = Color.White;
+
+            // chart1.ChartAreas[0].AxisY.TitleForeColor = Color.White;
+            // chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = false;
+            //chart1.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.WhiteSmoke;
+            // chart1.ChartAreas[0].AxisY.MinorGrid.Enabled = false;
+            //chart1.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.WhiteSmoke;
         }
 
         // Connect to PLC
@@ -155,6 +174,7 @@ namespace S7_Dimat
                     run = true;
                     textToolStripMenuItem.Enabled = false;
                     uložitToolStripMenuItem.Enabled = false;
+                    PrepareChart();
                     mythread.Start();
                     pingthread.Start();
                 } else
@@ -162,6 +182,16 @@ namespace S7_Dimat
                     MessageBox.Show("Nelze se připojit k PLC", "Chyba připojení PLC");
                 }
             }
+        }
+
+        private void PrepareChart()
+        {
+            // Delete series
+            chart1.Series.Clear();
+            chart1.Legends.Clear();
+
+           
+
         }
 
         private void odpojitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -204,14 +234,24 @@ namespace S7_Dimat
                     if (row.Cells["address"].Value != null && row.Cells["IsValid"].Value.ToString() == "1")
                     {
                        
-                        // Přečti řádek
+                        // Read row
                         string idrow = row.Cells["idrow"].Value.ToString();
                         string addr = row.Cells["address"].Value.ToString();
                         string format = row.Cells["format"].Value.ToString();
-                        //int rowindex = row.Index;
-                        // Hodnota z PLC
+
+                        string GraphName = addr;
+                        // Get name for the graph
+                        if (row.Cells["desc"].Value != null)
+                        {
+                            if (!string.IsNullOrEmpty(row.Cells["desc"].Value.ToString()))
+                            {
+                                GraphName += " (" + row.Cells["desc"].Value.ToString() + ")";
+                            }
+                        }
+
+                        // Raw byte from PLC
                         byte[] resbyte = _plc.GetValue(addr);
-                        // User output
+                        // Formated user output
                         string resvalue = "";
                         // Read in format
                         switch (format.ToUpper())
@@ -236,6 +276,10 @@ namespace S7_Dimat
                         // Update datagridview
                         SendResult dResult = new SendResult(ShowResult);
                         this.Invoke(dResult, idrow, resvalue);
+
+                        // Update chart
+                        PlotResult dPlot = new PlotResult(InsertPlotPoint);
+                        this.Invoke(dPlot, GraphName, resvalue, format.ToUpper());
                     }
                 }
                 Thread.Sleep(100);
@@ -250,9 +294,46 @@ namespace S7_Dimat
                 if (row.Cells["idrow"].Value.ToString() == index)
                 {
                     row.Cells["result"].Value = result;
+
+
                     break;
                 }
             }
+        }
+
+        private delegate void PlotResult(string name, string value, string format);
+        private void InsertPlotPoint(string name, string value, string format)
+        {
+            // Must exists or whatever
+            if (chart1.Series.IndexOf(name) == -1)
+            {
+                chart1.Series.Add(name);
+                chart1.Series[name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
+            }
+
+            //if (chart1.Legends.IndexOf(name) == -1)
+            //{
+            //    chart1.Legends.Add(name);
+
+            //}
+
+            //Get value from string
+            switch (format)
+            {
+                case "BOOL":
+                    int boolval = value.ToUpper() == "TRUE" ? 1 : 0;
+                    chart1.Series[name].Points.AddY(boolval);
+                    break;
+            }
+
+            if (chart1.Series[name].Points.Count > 100)
+            {
+                chart1.Series[name].Points.RemoveAt(0);
+            }
+
+
+            chart1.Update();
+
         }
 
         private void CreateTable()
@@ -529,6 +610,11 @@ namespace S7_Dimat
             DBLite db = new DBLite("delete from PLC_Signal where PLC=@id");
             db.AddParameter("id", PlcID, DbType.Int32);
             db.Exec();
+        }
+
+        private void grafToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            splitContainer1.Panel2Collapsed = splitContainer1.Panel2Collapsed ? false : true;
         }
     }
 }
