@@ -72,7 +72,6 @@ namespace S7_Dimat
             LoadSignals();
         }
 
-        // TODO: Musí nahrát i neviditelné řádky
         private void LoadSignals()
         {
             int plcid = GetPlcID();
