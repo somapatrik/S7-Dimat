@@ -16,20 +16,22 @@ namespace S7_Dimat
 {
     public partial class EditTableControl : UserControl
     {
+        // PLC
         private int _id;
         private string _name;
         private string _ip;
         private int _rack;
         private int _slot;
-
+        // PLC client
         private Plc _plc;
         private Plc.S7Type _type;
-
+        // Threads
         private Thread mythread;
         private Thread pingthread;
-
+        // List of 'global' variables
         private List<int> usedrows = new List<int>();
-
+        private List<string> usedseries = new List<string>();
+        // Scanning PLC
         private Boolean irun;
 
         private Boolean run
@@ -60,7 +62,6 @@ namespace S7_Dimat
             LoadPlc();
             // Creates DGV
             CreateTable();
-
             // PLC global object
             _plc = new Plc(_ip, _rack, _slot);
             _plc.Type = _type;
@@ -137,14 +138,15 @@ namespace S7_Dimat
             chart1.ChartAreas[0].BackColor = Color.Black;
             chart1.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.White;
             chart1.ChartAreas[0].AxisX.LineColor = Color.White;
+            chart1.ChartAreas[0].AxisX.LabelStyle.Format = "HH:mm:ss";
+
             chart1.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.White;
             chart1.ChartAreas[0].AxisY.LineColor = Color.White;
 
-            // chart1.ChartAreas[0].AxisY.TitleForeColor = Color.White;
-            // chart1.ChartAreas[0].AxisX.MinorGrid.Enabled = false;
-            //chart1.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.WhiteSmoke;
-            // chart1.ChartAreas[0].AxisY.MinorGrid.Enabled = false;
-            //chart1.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.WhiteSmoke;
+            chart1.ChartAreas[0].AxisX.Interval = 3;
+            chart1.ChartAreas[0].AxisX.IntervalOffset = 1;
+            
+            chart1.ChartAreas[0].AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
         }
 
         // Connect to PLC
@@ -188,9 +190,8 @@ namespace S7_Dimat
             // Delete series
             chart1.Series.Clear();
             chart1.Legends.Clear();
-
-           
-
+            //Delete global variables
+            usedseries.Clear();
         }
 
         private void odpojitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -276,12 +277,15 @@ namespace S7_Dimat
                         SendResult dResult = new SendResult(ShowResult);
                         this.Invoke(dResult, idrow, resvalue);
 
-                        // Update chart
+                        // Insert into chart
                         PlotResult dPlot = new PlotResult(InsertPlotPoint);
                         this.Invoke(dPlot, GraphName, resvalue, format.ToUpper());
                     }
                 }
                 Thread.Sleep(100);
+                // Update chart
+                UpdateChart dupdate = new UpdateChart(UpdateChartPoints);
+                this.Invoke(dupdate);
             }
         }
 
@@ -305,34 +309,45 @@ namespace S7_Dimat
             if (chart1.Series.IndexOf(name) == -1)
             {
                 chart1.Series.Add(name);
+                usedseries.Add(name);
                 chart1.Series[name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
+                chart1.Series[name].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             }
+
+            DateTime act = DateTime.Now;
 
             //Get value from string
             switch (format)
             {
                 case "BOOL":
                     int boolval = value.ToUpper() == "TRUE" ? 1 : 0;
-                    chart1.Series[name].Points.AddY(boolval);
+                    //chart1.Series[name].Points.AddY(boolval);
+                    chart1.Series[name].Points.AddXY(act, boolval);
                     break;
                 case "DEC":
                     int intval = Int32.Parse(value);
-                    chart1.Series[name].Points.AddY(intval);
+                    //chart1.Series[name].Points.AddY(intval);
+                    chart1.Series[name].Points.AddXY(act, intval);
                     break;
                 case "FLOAT":
                     float fvalue = float.Parse(value);
-                    chart1.Series[name].Points.AddY(fvalue);
+                    //chart1.Series[name].Points.AddY(fvalue);
+                    chart1.Series[name].Points.AddXY(act, fvalue);
                     break;
             }
 
-            if (chart1.Series[name].Points.Count > 100)
+            DateTime MinDate = act.AddSeconds(-30);
+            if (chart1.ChartAreas[0].AxisX.Minimum < MinDate.ToOADate())
             {
-                chart1.Series[name].Points.RemoveAt(0);
+                chart1.ChartAreas[0].AxisX.Minimum = MinDate.ToOADate();
             }
 
+        }
 
+        private delegate void UpdateChart();
+        private void UpdateChartPoints()
+        {
             chart1.Update();
-
         }
 
         private void CreateTable()
