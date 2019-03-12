@@ -293,8 +293,6 @@ namespace S7_Dimat
                 if (row.Cells["idrow"].Value.ToString() == index)
                 {
                     row.Cells["result"].Value = result;
-
-
                     break;
                 }
             }
@@ -310,18 +308,20 @@ namespace S7_Dimat
                 chart1.Series[name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
             }
 
-            //if (chart1.Legends.IndexOf(name) == -1)
-            //{
-            //    chart1.Legends.Add(name);
-
-            //}
-
             //Get value from string
             switch (format)
             {
                 case "BOOL":
                     int boolval = value.ToUpper() == "TRUE" ? 1 : 0;
                     chart1.Series[name].Points.AddY(boolval);
+                    break;
+                case "DEC":
+                    int intval = Int32.Parse(value);
+                    chart1.Series[name].Points.AddY(intval);
+                    break;
+                case "FLOAT":
+                    float fvalue = float.Parse(value);
+                    chart1.Series[name].Points.AddY(fvalue);
                     break;
             }
 
@@ -338,7 +338,6 @@ namespace S7_Dimat
         private void CreateTable()
         {
             BuildRow();
-            //dataGridView1.Rows.Add(9);
         }
 
         private void BuildRow()
