@@ -321,17 +321,14 @@ namespace S7_Dimat
             {
                 case "BOOL":
                     int boolval = value.ToUpper() == "TRUE" ? 1 : 0;
-                    //chart1.Series[name].Points.AddY(boolval);
                     chart1.Series[name].Points.AddXY(act, boolval);
                     break;
                 case "DEC":
                     int intval = Int32.Parse(value);
-                    //chart1.Series[name].Points.AddY(intval);
                     chart1.Series[name].Points.AddXY(act, intval);
                     break;
                 case "FLOAT":
                     float fvalue = float.Parse(value);
-                    //chart1.Series[name].Points.AddY(fvalue);
                     chart1.Series[name].Points.AddXY(act, fvalue);
                     break;
             }
@@ -347,6 +344,7 @@ namespace S7_Dimat
         private delegate void UpdateChart();
         private void UpdateChartPoints()
         {
+            chart1.ChartAreas[0].RecalculateAxesScale();
             chart1.Update();
         }
 
