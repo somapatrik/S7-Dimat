@@ -147,6 +147,7 @@ namespace S7_Dimat
             chart1.ChartAreas[0].AxisX.IntervalOffset = 1;
             
             chart1.ChartAreas[0].AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
+
         }
 
         // Connect to PLC
@@ -297,6 +298,17 @@ namespace S7_Dimat
                 if (row.Cells["idrow"].Value.ToString() == index)
                 {
                     row.Cells["result"].Value = result;
+                    DataGridViewCellStyle style = new DataGridViewCellStyle();
+                    if (result.ToUpper() == "TRUE")
+                    {
+                        style.BackColor = Color.LawnGreen;
+                        row.Cells["result"].Style = style;
+                    }
+                    else
+                    {
+                        style.BackColor = Color.White;
+                        row.Cells["result"].Style = style;
+                    }
                     break;
                 }
             }
@@ -305,13 +317,24 @@ namespace S7_Dimat
         private delegate void PlotResult(string name, string value, string format);
         private void InsertPlotPoint(string name, string value, string format)
         {
-            // Must exists or whatever
+            // If not needed do not use
+            if (splitContainer1.Panel2Collapsed)
+            {
+                return;
+            }
+
+            // Must exists
             if (chart1.Series.IndexOf(name) == -1)
             {
-                chart1.Series.Add(name);
                 usedseries.Add(name);
+                // Series
+                chart1.Series.Add(name);
                 chart1.Series[name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
                 chart1.Series[name].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+                chart1.Series[name].BorderWidth = 5;
+                //Legend
+                chart1.Legends.Add(name);
+                chart1.Legends[name].Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
             }
 
             DateTime act = DateTime.Now;
@@ -339,12 +362,15 @@ namespace S7_Dimat
                 chart1.ChartAreas[0].AxisX.Minimum = MinDate.ToOADate();
             }
 
+            // Recalculate range
+            chart1.ChartAreas[0].RecalculateAxesScale();
+
         }
 
         private delegate void UpdateChart();
         private void UpdateChartPoints()
         {
-            chart1.ChartAreas[0].RecalculateAxesScale();
+            
             chart1.Update();
         }
 
