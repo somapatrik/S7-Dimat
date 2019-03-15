@@ -128,25 +128,38 @@ namespace S7_Dimat
             toolStripTextBox2.Text = _ip;
             toolStripStatusLabel1.Text = "";
 
+            splitContainer1.Panel2Collapsed = true;
+
             LoadPlotter();
         }
 
         private void LoadPlotter()
         {
-            chart1.BackColor = Color.Black;
+            chart1.BackColor = Color.DarkGray;
             chart1.ForeColor = Color.White;
-            chart1.ChartAreas[0].BackColor = Color.Black;
+            chart1.ChartAreas[0].BackColor = Color.WhiteSmoke;
+
             chart1.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.White;
             chart1.ChartAreas[0].AxisX.LineColor = Color.White;
+            chart1.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.DarkGray;
             chart1.ChartAreas[0].AxisX.LabelStyle.Format = "HH:mm:ss";
 
             chart1.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.White;
             chart1.ChartAreas[0].AxisY.LineColor = Color.White;
+            chart1.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.DarkGray;
 
-            chart1.ChartAreas[0].AxisX.Interval = 3;
+            chart1.ChartAreas[0].AxisX.Interval = 5;
             chart1.ChartAreas[0].AxisX.IntervalOffset = 1;
             
             chart1.ChartAreas[0].AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
+
+            //SetX();
+            DateTime act = DateTime.Now;
+            DateTime max = act.AddSeconds(60);
+            //DateTime min = act.AddSeconds(-30);
+
+            chart1.ChartAreas[0].AxisX.Minimum = act.ToOADate();
+            chart1.ChartAreas[0].AxisX.Maximum = max.ToOADate();
 
         }
 
@@ -331,7 +344,7 @@ namespace S7_Dimat
                 chart1.Series.Add(name);
                 chart1.Series[name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
                 chart1.Series[name].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-                chart1.Series[name].BorderWidth = 5;
+                chart1.Series[name].BorderWidth = 4;
                 //Legend
                 chart1.Legends.Add(name);
                 chart1.Legends[name].Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
@@ -356,15 +369,24 @@ namespace S7_Dimat
                     break;
             }
 
-            DateTime MinDate = act.AddSeconds(-30);
-            if (chart1.ChartAreas[0].AxisX.Minimum < MinDate.ToOADate())
+            if (act.ToOADate() >= chart1.ChartAreas[0].AxisX.Maximum)
             {
-                chart1.ChartAreas[0].AxisX.Minimum = MinDate.ToOADate();
+                SetX();
             }
 
             // Recalculate range
-            chart1.ChartAreas[0].RecalculateAxesScale();
+            //chart1.ChartAreas[0].RecalculateAxesScale();
 
+        }
+
+        private void SetX()
+        {
+            DateTime act = DateTime.Now;
+            DateTime max = act.AddSeconds(30);
+            DateTime min = act.AddSeconds(-30);
+
+            chart1.ChartAreas[0].AxisX.Minimum = min.ToOADate();
+            chart1.ChartAreas[0].AxisX.Maximum = max.ToOADate();
         }
 
         private delegate void UpdateChart();
@@ -409,8 +431,13 @@ namespace S7_Dimat
             idrow.Name = "idrow";
             idrow.Visible = false;
 
+            DataGridViewCheckBoxColumn check = new DataGridViewCheckBoxColumn();
+            check.Name = "check";
+            check.HeaderText = "Graf";
+
             dataGridView1.Columns.Add(idrow);
             dataGridView1.Columns.Add(valid);
+            dataGridView1.Columns.Add(check);
             dataGridView1.Columns.Add(Addr);
             dataGridView1.Columns.Add(label);
             dataGridView1.Columns.Add(cmb_ResulType);
@@ -652,6 +679,9 @@ namespace S7_Dimat
         private void grafToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             splitContainer1.Panel2Collapsed = splitContainer1.Panel2Collapsed ? false : true;
+
+            dataGridView1.Columns["check"].Visible = splitContainer1.Panel2Collapsed ? false : true;
+
         }
     }
 }
