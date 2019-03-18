@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // sadu atributů. Změnou hodnot těchto atributů se upraví informace
 // přidružené k sestavení.
 [assembly: AssemblyTitle("S7 Dimat")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Sledování PLC proměnných")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HP Inc.")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("S7 Dimat")]
-[assembly: AssemblyCopyright("Copyright © HP Inc. 2019")]
+[assembly: AssemblyCopyright("Copyright © Patrik Šoma 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

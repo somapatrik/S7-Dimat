@@ -136,9 +136,9 @@ namespace S7_Dimat
 
         private void LoadPlotter()
         {
-            chart1.BackColor = Color.DarkGray;
+            chart1.BackColor = Color.Black;
             chart1.ForeColor = Color.White;
-            chart1.ChartAreas[0].BackColor = Color.WhiteSmoke;
+            chart1.ChartAreas[0].BackColor = Color.Black;
 
             chart1.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.White;
             chart1.ChartAreas[0].AxisX.LineColor = Color.White;
@@ -340,23 +340,22 @@ namespace S7_Dimat
                 return;
             }
 
-
             if (chart1.Legends.IndexOf(name) == -1)
             {
-                //Legend
                 chart1.Legends.Add(name);
-                chart1.Legends[name].Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Left;
-                chart1.Legends[name].LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Column;
+                chart1.Legends[name].Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+                chart1.Legends[name].LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Row;
+                chart1.Legends[name].Position = new ElementPosition(0, 0, 100, 10);
+                chart1.Legends[name].BackColor = Color.Black;
+                chart1.Legends[name].ForeColor = Color.DarkGray;
             }
 
             if (chart1.Series.IndexOf(name) == -1)
             {
-                // Series
                 chart1.Series.Add(name);
                 chart1.Series[name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
                 chart1.Series[name].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
                 chart1.Series[name].BorderWidth = 4;
-                chart1.Series[name].Legend = name;
             }
 
             DateTime act = DateTime.Now;
@@ -385,7 +384,6 @@ namespace S7_Dimat
 
             // Recalculate range
             //chart1.ChartAreas[0].RecalculateAxesScale();
-
         }
 
         private void SetX()
@@ -567,7 +565,7 @@ namespace S7_Dimat
             if (dataGridView1.Rows[row].Cells["address"].Value != null & dataGridView1.Rows[row].Cells["address"].Value != null)
             {
                 string actaddr = dataGridView1.Rows[row].Cells["address"].Value.ToString();
-                if (!string.IsNullOrEmpty(actaddr))
+                if (!string.IsNullOrEmpty(actaddr) && this.run)
                 {
                     if (!actvalue)
                     {
@@ -577,10 +575,10 @@ namespace S7_Dimat
                             chart1.Series.RemoveAt(chart1.Series.IndexOf(actaddr));
                         }
 
-                        //if (chart1.Legends.IndexOf(actaddr) != -1)
-                        //{
-                        //    chart1.Legends.RemoveAt(chart1.Legends.IndexOf(actaddr));
-                        //}
+                        if (chart1.Legends.IndexOf(actaddr) != -1)
+                        {
+                            chart1.Legends.RemoveAt(chart1.Legends.IndexOf(actaddr));
+                        }
                     }
                 }
             }
