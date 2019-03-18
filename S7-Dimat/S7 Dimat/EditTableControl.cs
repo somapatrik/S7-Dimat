@@ -11,6 +11,7 @@ using S7_Dimat.Class;
 using System.Data.SQLite;
 using System.Threading;
 using System.Net.NetworkInformation;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace S7_Dimat
 {
@@ -161,6 +162,7 @@ namespace S7_Dimat
             chart1.ChartAreas[0].AxisX.Minimum = act.ToOADate();
             chart1.ChartAreas[0].AxisX.Maximum = max.ToOADate();
 
+            chart1.ChartAreas[0].Position = new ElementPosition(3, 13, 96, 84);
         }
 
         // Connect to PLC
@@ -255,13 +257,13 @@ namespace S7_Dimat
 
                         string GraphName = addr;
                         // Get name for the graph
-                        if (row.Cells["desc"].Value != null)
-                        {
-                            if (!string.IsNullOrEmpty(row.Cells["desc"].Value.ToString()))
-                            {
-                                GraphName += " (" + row.Cells["desc"].Value.ToString() + ")";
-                            }
-                        }
+                        //if (row.Cells["desc"].Value != null)
+                        //{
+                        //    if (!string.IsNullOrEmpty(row.Cells["desc"].Value.ToString()))
+                        //    {
+                        //        GraphName += " (" + row.Cells["desc"].Value.ToString() + ")";
+                        //    }
+                        //}
 
                         // Raw byte from PLC
                         byte[] resbyte = _plc.GetValue(addr);
@@ -290,10 +292,12 @@ namespace S7_Dimat
                         // Update datagridview
                         SendResult dResult = new SendResult(ShowResult);
                         this.Invoke(dResult, idrow, resvalue);
-
-                        // Insert into chart
-                        PlotResult dPlot = new PlotResult(InsertPlotPoint);
-                        this.Invoke(dPlot, GraphName, resvalue, format.ToUpper());
+                        if (Convert.ToBoolean(row.Cells["check"].Value))
+                        {
+                            // Insert into chart
+                            PlotResult dPlot = new PlotResult(InsertPlotPoint);
+                            this.Invoke(dPlot, GraphName, resvalue, format.ToUpper());
+                        }
                     }
                 }
                 Thread.Sleep(100);
@@ -336,18 +340,23 @@ namespace S7_Dimat
                 return;
             }
 
-            // Must exists
+
+            if (chart1.Legends.IndexOf(name) == -1)
+            {
+                //Legend
+                chart1.Legends.Add(name);
+                chart1.Legends[name].Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Left;
+                chart1.Legends[name].LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Column;
+            }
+
             if (chart1.Series.IndexOf(name) == -1)
             {
-                usedseries.Add(name);
                 // Series
                 chart1.Series.Add(name);
                 chart1.Series[name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
                 chart1.Series[name].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
                 chart1.Series[name].BorderWidth = 4;
-                //Legend
-                chart1.Legends.Add(name);
-                chart1.Legends[name].Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Top;
+                chart1.Series[name].Legend = name;
             }
 
             DateTime act = DateTime.Now;
@@ -434,7 +443,8 @@ namespace S7_Dimat
             DataGridViewCheckBoxColumn check = new DataGridViewCheckBoxColumn();
             check.Name = "check";
             check.HeaderText = "Graf";
-
+            check.Visible = false;
+            
             dataGridView1.Columns.Add(idrow);
             dataGridView1.Columns.Add(valid);
             dataGridView1.Columns.Add(check);
@@ -543,6 +553,36 @@ namespace S7_Dimat
                 }
 
                 inputcell.Style = style;
+            } else if (e.ColumnIndex == dataGridView1.Columns["check"].Index)
+            {
+                HandleCheckField(e.RowIndex);
+            }
+        }
+
+        private void HandleCheckField(int row)
+        {
+            Boolean actvalue = Convert.ToBoolean(dataGridView1.Rows[row].Cells["check"].Value);
+            DataGridViewCellStyle style = new DataGridViewCellStyle();// dataGridView1.Rows[row].Cells["check"].Style;
+
+            if (dataGridView1.Rows[row].Cells["address"].Value != null & dataGridView1.Rows[row].Cells["address"].Value != null)
+            {
+                string actaddr = dataGridView1.Rows[row].Cells["address"].Value.ToString();
+                if (!string.IsNullOrEmpty(actaddr))
+                {
+                    if (!actvalue)
+                    {
+
+                        if (chart1.Series.IndexOf(actaddr) != -1)
+                        {
+                            chart1.Series.RemoveAt(chart1.Series.IndexOf(actaddr));
+                        }
+
+                        //if (chart1.Legends.IndexOf(actaddr) != -1)
+                        //{
+                        //    chart1.Legends.RemoveAt(chart1.Legends.IndexOf(actaddr));
+                        //}
+                    }
+                }
             }
         }
 
@@ -682,6 +722,23 @@ namespace S7_Dimat
 
             dataGridView1.Columns["check"].Visible = splitContainer1.Panel2Collapsed ? false : true;
 
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dataGridView1.Columns["check"] != null)
+            {
+                if (e.ColumnIndex == dataGridView1.Columns["check"].Index)
+                {
+                    dataGridView1.EndEdit();
+                }
+
+            }
         }
     }
 }
