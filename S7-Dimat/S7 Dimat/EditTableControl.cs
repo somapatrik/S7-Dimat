@@ -356,6 +356,15 @@ namespace S7_Dimat
                 chart1.Series[name].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.StepLine;
                 chart1.Series[name].XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
                 chart1.Series[name].BorderWidth = 4;
+                //foreach (Legend leg in chart1.Legends)
+                //{
+                //    if (leg.Name == name)
+                //    {
+                //        chart1.Series[name].Legend = leg.Name;
+                //    }
+                //}
+                //chart1.Series[name].Legend = name;
+                //chart1.Series[name].IsVisibleInLegend = false;
             }
 
             DateTime act = DateTime.Now;
@@ -575,10 +584,10 @@ namespace S7_Dimat
                             chart1.Series.RemoveAt(chart1.Series.IndexOf(actaddr));
                         }
 
-                        if (chart1.Legends.IndexOf(actaddr) != -1)
-                        {
-                            chart1.Legends.RemoveAt(chart1.Legends.IndexOf(actaddr));
-                        }
+                        //if (chart1.Legends.IndexOf(actaddr) != -1)
+                        //{
+                        //    chart1.Legends.RemoveAt(chart1.Legends.IndexOf(actaddr));
+                        //}
                     }
                 }
             }
