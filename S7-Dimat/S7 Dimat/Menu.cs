@@ -24,6 +24,12 @@ namespace S7_Dimat
         {
             LoadLocalDB();
             LoadTree();
+            LoadVersion();
+        }
+
+        private void LoadVersion()
+        {
+            txt_version.Text = Application.ProductVersion;
         }
 
         private void LoadTree()
@@ -135,11 +141,7 @@ namespace S7_Dimat
 
         private void novéToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            NewPLC add = new NewPLC();
-            if (add.ShowDialog() == DialogResult.OK)
-            {
-                LoadTree();
-            }
+            NewPLC();
         }
 
         private void změnitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -161,6 +163,26 @@ namespace S7_Dimat
                 EditTableControl old = (EditTableControl)splitContainer1.Panel2.Controls["EditTableControl"];
                 old.EasyClose();
             }
+        }
+
+        private void btn_NewPlc_Click(object sender, EventArgs e)
+        {
+            NewPLC();
+        }
+
+        public void NewPLC()
+        {
+            NewPLC add = new NewPLC();
+            if (add.ShowDialog() == DialogResult.OK)
+            {
+                LoadTree();
+            }
+        }
+
+        private void btn_about_Click(object sender, EventArgs e)
+        {
+            About about = new About();
+            about.ShowDialog();
         }
     }
 }

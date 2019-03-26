@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.btn_NewPlc = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView1 = new System.Windows.Forms.TreeView();
@@ -41,6 +42,10 @@
             this.smazatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.context_new = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.novéToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.txt_version = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btn_about = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -50,16 +55,31 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btn_NewPlc,
+            this.btn_about});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1098, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // btn_NewPlc
+            // 
+            this.btn_NewPlc.Image = ((System.Drawing.Image)(resources.GetObject("btn_NewPlc.Image")));
+            this.btn_NewPlc.Name = "btn_NewPlc";
+            this.btn_NewPlc.Size = new System.Drawing.Size(28, 20);
+            this.btn_NewPlc.ToolTipText = "Přidat PLC";
+            this.btn_NewPlc.Click += new System.EventHandler(this.btn_NewPlc_Click);
+            // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.txt_version});
             this.statusStrip1.Location = new System.Drawing.Point(0, 714);
             this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.statusStrip1.Size = new System.Drawing.Size(1098, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
@@ -117,6 +137,7 @@
             // 
             // změnitToolStripMenuItem
             // 
+            this.změnitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("změnitToolStripMenuItem.Image")));
             this.změnitToolStripMenuItem.Name = "změnitToolStripMenuItem";
             this.změnitToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.změnitToolStripMenuItem.Text = "Změnit...";
@@ -124,6 +145,7 @@
             // 
             // smazatToolStripMenuItem
             // 
+            this.smazatToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("smazatToolStripMenuItem.Image")));
             this.smazatToolStripMenuItem.Name = "smazatToolStripMenuItem";
             this.smazatToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.smazatToolStripMenuItem.Text = "Smazat";
@@ -134,14 +156,29 @@
             this.context_new.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.novéToolStripMenuItem1});
             this.context_new.Name = "context_new";
-            this.context_new.Size = new System.Drawing.Size(115, 26);
+            this.context_new.Size = new System.Drawing.Size(139, 26);
             // 
             // novéToolStripMenuItem1
             // 
+            this.novéToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("novéToolStripMenuItem1.Image")));
             this.novéToolStripMenuItem1.Name = "novéToolStripMenuItem1";
-            this.novéToolStripMenuItem1.Size = new System.Drawing.Size(114, 22);
-            this.novéToolStripMenuItem1.Text = "Přidat...";
+            this.novéToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
+            this.novéToolStripMenuItem1.Text = "Přidat PLC...";
             this.novéToolStripMenuItem1.Click += new System.EventHandler(this.novéToolStripMenuItem1_Click);
+            // 
+            // txt_version
+            // 
+            this.txt_version.Name = "txt_version";
+            this.txt_version.Size = new System.Drawing.Size(45, 17);
+            this.txt_version.Text = "version";
+            // 
+            // btn_about
+            // 
+            this.btn_about.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btn_about.Image = ((System.Drawing.Image)(resources.GetObject("btn_about.Image")));
+            this.btn_about.Name = "btn_about";
+            this.btn_about.Size = new System.Drawing.Size(28, 20);
+            this.btn_about.Click += new System.EventHandler(this.btn_about_Click);
             // 
             // Menu
             // 
@@ -155,9 +192,13 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "S7-Dimat";
+            this.Text = "S7 Dimat";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Menu_FormClosing);
             this.Load += new System.EventHandler(this.Menu_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -181,5 +222,8 @@
         private System.Windows.Forms.ContextMenuStrip context_new;
         private System.Windows.Forms.ToolStripMenuItem novéToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem změnitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btn_NewPlc;
+        private System.Windows.Forms.ToolStripStatusLabel txt_version;
+        private System.Windows.Forms.ToolStripMenuItem btn_about;
     }
 }
