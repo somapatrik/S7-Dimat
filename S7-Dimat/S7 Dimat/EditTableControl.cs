@@ -667,6 +667,9 @@ namespace S7_Dimat
 
         private void SaveSignals(int PlcID)
         {
+            try
+            {
+
             foreach (DataGridViewRow row in dataGridView1.Rows) {
 
                 string desc = "";
@@ -696,6 +699,11 @@ namespace S7_Dimat
                 db.AddParameter("repre", repre.ToLower(), DbType.String);
                 db.Exec();
                 db = null;
+            }
+                MessageBox.Show("Uložení dokončeno", "Uloženo");
+            }catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message,"Chyba uložení", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

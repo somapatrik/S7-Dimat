@@ -55,7 +55,7 @@ namespace S7_Dimat
                 TestDB();
             } else
             {
-                File.WriteAllBytes(Path.Combine(Global.ExeDirectory, Global.LocalDBName), S7_Dimat.Properties.Resources.data);  
+                File.WriteAllBytes(Path.Combine(Global.ExeDirectory, Global.LocalDBName), Properties.Resources.data);  
             }
         }
 
