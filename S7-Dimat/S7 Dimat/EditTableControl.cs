@@ -295,8 +295,10 @@ namespace S7_Dimat
                         if (Convert.ToBoolean(row.Cells["check"].Value))
                         {
                             // Insert into chart
-                            PlotResult dPlot = new PlotResult(InsertPlotPoint);
-                            this.Invoke(dPlot, GraphName, resvalue, format.ToUpper());
+                            if (format.ToUpper() != "BIN") { 
+                                PlotResult dPlot = new PlotResult(InsertPlotPoint);
+                                this.Invoke(dPlot, GraphName, resvalue, format.ToUpper());
+                            }
                         }
                     }
                 }
