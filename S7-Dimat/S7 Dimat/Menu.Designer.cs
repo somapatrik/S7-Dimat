@@ -32,7 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.btn_NewPlc = new System.Windows.Forms.ToolStripMenuItem();
+            this.btn_about = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.txt_version = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.pLCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,8 +44,6 @@
             this.smazatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.context_new = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.novéToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.txt_version = new System.Windows.Forms.ToolStripStatusLabel();
-            this.btn_about = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -73,6 +73,14 @@
             this.btn_NewPlc.ToolTipText = "Přidat PLC";
             this.btn_NewPlc.Click += new System.EventHandler(this.btn_NewPlc_Click);
             // 
+            // btn_about
+            // 
+            this.btn_about.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.btn_about.Image = ((System.Drawing.Image)(resources.GetObject("btn_about.Image")));
+            this.btn_about.Name = "btn_about";
+            this.btn_about.Size = new System.Drawing.Size(28, 20);
+            this.btn_about.Click += new System.EventHandler(this.btn_about_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -83,6 +91,12 @@
             this.statusStrip1.Size = new System.Drawing.Size(1098, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // txt_version
+            // 
+            this.txt_version.Name = "txt_version";
+            this.txt_version.Size = new System.Drawing.Size(45, 17);
+            this.txt_version.Text = "version";
             // 
             // splitContainer1
             // 
@@ -165,20 +179,6 @@
             this.novéToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
             this.novéToolStripMenuItem1.Text = "Přidat PLC...";
             this.novéToolStripMenuItem1.Click += new System.EventHandler(this.novéToolStripMenuItem1_Click);
-            // 
-            // txt_version
-            // 
-            this.txt_version.Name = "txt_version";
-            this.txt_version.Size = new System.Drawing.Size(45, 17);
-            this.txt_version.Text = "version";
-            // 
-            // btn_about
-            // 
-            this.btn_about.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.btn_about.Image = ((System.Drawing.Image)(resources.GetObject("btn_about.Image")));
-            this.btn_about.Name = "btn_about";
-            this.btn_about.Size = new System.Drawing.Size(28, 20);
-            this.btn_about.Click += new System.EventHandler(this.btn_about_Click);
             // 
             // Menu
             // 

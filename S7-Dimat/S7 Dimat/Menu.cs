@@ -107,10 +107,16 @@ namespace S7_Dimat
 
             if (id >= 0)
             {
-                // Pak dodělat signály
+                // Signals
+                DBLite dbsignals = new DBLite("delete from PLC_Signal where PLC=@id");
+                dbsignals.AddParameter("id", id, DbType.Int32);
+                dbsignals.Exec();
+                // PLC
                 DBLite db = new DBLite("delete from PLC where ID=@id");
                 db.AddParameter("id", id, DbType.Int32);
                 db.Exec();
+                // Close
+                CloseEdit();
             }
 
             LoadTree();
@@ -137,6 +143,17 @@ namespace S7_Dimat
 
                 splitContainer1.Panel2.Controls.Add(control);
             }
+        }
+
+        private void CloseEdit()
+        {
+            if (splitContainer1.Panel2.Controls.Count > 0)
+            {
+                EditTableControl old = (EditTableControl)splitContainer1.Panel2.Controls["EditTableControl"];
+                old.EasyClose();
+            }
+
+            splitContainer1.Panel2.Controls.Clear();
         }
 
         private void novéToolStripMenuItem1_Click(object sender, EventArgs e)
