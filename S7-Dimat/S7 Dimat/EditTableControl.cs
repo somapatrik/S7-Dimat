@@ -76,6 +76,8 @@ namespace S7_Dimat
 
         private void LoadSignals()
         {
+            // TODO: GetPlcID is not needed, ID is already known
+            // TODO: Should use _id;
             int plcid = GetPlcID();
 
             DBLite db = new DBLite("select Addr, Desc, repre from PLC_Signal where PLC=@id");

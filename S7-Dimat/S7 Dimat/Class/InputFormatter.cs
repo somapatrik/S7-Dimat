@@ -87,6 +87,7 @@ namespace S7_Dimat.Class
             if (DBByte.IsMatch(Adrr)) { dbbyte = true; Ok = true; return; }
             if (DBWord.IsMatch(Adrr)) { dbword = true; Ok = true; return; }
             if (DBDouble.IsMatch(Adrr)) { dbdouble = true; Ok = true; return; }
+            // TODO: add Text
 
         }
 
