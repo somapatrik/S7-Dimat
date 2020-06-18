@@ -16,11 +16,13 @@ namespace S7_Dimat.Class
         private Boolean nbyte;
         private Boolean nword;
         private Boolean ndouble;
+        private Boolean nstring;
 
         private Boolean dbbit;
         private Boolean dbbyte;
         private Boolean dbword;
         private Boolean dbdouble;
+        private Boolean dbstring;
 
         public Boolean IsValid
         {
@@ -60,6 +62,14 @@ namespace S7_Dimat.Class
             }
         }
 
+        public Boolean IsString
+        { 
+            get
+            {
+                return nstring | dbstring;
+            } 
+        }
+
         public InputFormatter(string input)
         {
             Adrr = input.ToUpper().Trim().Replace(" ","");
@@ -72,22 +82,25 @@ namespace S7_Dimat.Class
             Regex NormalByte = new Regex(@"[I,Q,M][B]\d+$", RegexOptions.IgnoreCase);
             Regex NormalWord = new Regex(@"[I,Q,M][W]\d+$", RegexOptions.IgnoreCase);
             Regex NormalDouble = new Regex(@"[I,Q,M][D]\d+$", RegexOptions.IgnoreCase);
+            Regex NormalString = new Regex(@"[M][S]\d+[,]\d+$", RegexOptions.IgnoreCase);
 
             Regex DBBit = new Regex(@"\DB\d+.DBX\d+[.][0-7]$", RegexOptions.IgnoreCase);
             Regex DBByte = new Regex(@"\DB\d+.DB[B]\d+$", RegexOptions.IgnoreCase);
             Regex DBWord = new Regex(@"\DB\d+.DB[W]\d+$", RegexOptions.IgnoreCase);
             Regex DBDouble = new Regex(@"\DB\d+.DB[D]\d+$", RegexOptions.IgnoreCase);
-            
+            Regex DBString = new Regex(@"\DB\d+.[S]\d+[,]\d+$", RegexOptions.IgnoreCase);
+
             if (NormalBit.IsMatch(Adrr)) { nbit = true; Ok = true; return; }
             if (NormalByte.IsMatch(Adrr)) { nbyte = true; Ok = true; return; }
             if (NormalWord.IsMatch(Adrr)) { nword = true; Ok = true; return; }
             if (NormalDouble.IsMatch(Adrr)) { ndouble = true; Ok = true; return; }
+            if (NormalString.IsMatch(Adrr)) { nstring = true; Ok = true; return; }
 
             if (DBBit.IsMatch(Adrr)) { dbbit = true; Ok = true; return; }
             if (DBByte.IsMatch(Adrr)) { dbbyte = true; Ok = true; return; }
             if (DBWord.IsMatch(Adrr)) { dbword = true; Ok = true; return; }
             if (DBDouble.IsMatch(Adrr)) { dbdouble = true; Ok = true; return; }
-            // TODO: add Text
+            if (DBString.IsMatch(Adrr)) { dbstring = true; Ok = true; return; }
 
         }
 

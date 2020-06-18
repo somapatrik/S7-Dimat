@@ -115,6 +115,7 @@
     <Compile Include="Class\Global.cs" />
     <Compile Include="Class\InputFormatter.cs" />
     <Compile Include="Class\Plc.cs" />
+    <Compile Include="Class\PlcValue.cs" />
     <Compile Include="Class\Sharp7.cs" />
     <Compile Include="EditTableControl.cs">
       <SubType>UserControl</SubType>
