@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditTableControl));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
@@ -74,7 +74,6 @@
             // 
             this.toolStripTextBox1.BackColor = System.Drawing.Color.White;
             this.toolStripTextBox1.Enabled = false;
-            this.toolStripTextBox1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.ReadOnly = true;
             this.toolStripTextBox1.Size = new System.Drawing.Size(200, 23);
@@ -84,7 +83,6 @@
             // 
             this.toolStripTextBox2.BackColor = System.Drawing.Color.White;
             this.toolStripTextBox2.Enabled = false;
-            this.toolStripTextBox2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStripTextBox2.Name = "toolStripTextBox2";
             this.toolStripTextBox2.ReadOnly = true;
             this.toolStripTextBox2.Size = new System.Drawing.Size(200, 23);
@@ -92,44 +90,36 @@
             // 
             // textToolStripMenuItem
             // 
-            this.textToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.textToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("textToolStripMenuItem.Image")));
             this.textToolStripMenuItem.Name = "textToolStripMenuItem";
-            this.textToolStripMenuItem.Size = new System.Drawing.Size(28, 23);
+            this.textToolStripMenuItem.Size = new System.Drawing.Size(77, 23);
             this.textToolStripMenuItem.Text = "Připojit";
-            this.textToolStripMenuItem.ToolTipText = "Připojit";
             this.textToolStripMenuItem.Click += new System.EventHandler(this.textToolStripMenuItem_Click);
             // 
             // odpojitToolStripMenuItem
             // 
-            this.odpojitToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.odpojitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("odpojitToolStripMenuItem.Image")));
             this.odpojitToolStripMenuItem.Name = "odpojitToolStripMenuItem";
-            this.odpojitToolStripMenuItem.Size = new System.Drawing.Size(28, 23);
+            this.odpojitToolStripMenuItem.Size = new System.Drawing.Size(80, 23);
             this.odpojitToolStripMenuItem.Text = "Odpojit";
-            this.odpojitToolStripMenuItem.ToolTipText = "Odpojit";
             this.odpojitToolStripMenuItem.Click += new System.EventHandler(this.odpojitToolStripMenuItem_Click);
             // 
             // uložitToolStripMenuItem
             // 
             this.uložitToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.uložitToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.uložitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("uložitToolStripMenuItem.Image")));
             this.uložitToolStripMenuItem.Name = "uložitToolStripMenuItem";
-            this.uložitToolStripMenuItem.Size = new System.Drawing.Size(28, 23);
+            this.uložitToolStripMenuItem.Size = new System.Drawing.Size(112, 23);
             this.uložitToolStripMenuItem.Text = "Uložit adresy";
-            this.uložitToolStripMenuItem.ToolTipText = "Uložit adresy";
             this.uložitToolStripMenuItem.Click += new System.EventHandler(this.uložitToolStripMenuItem_Click);
             // 
             // grafToolStripMenuItem
             // 
             this.grafToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.grafToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.grafToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("grafToolStripMenuItem.Image")));
             this.grafToolStripMenuItem.Name = "grafToolStripMenuItem";
-            this.grafToolStripMenuItem.Size = new System.Drawing.Size(28, 23);
+            this.grafToolStripMenuItem.Size = new System.Drawing.Size(61, 23);
             this.grafToolStripMenuItem.Text = "Graf";
-            this.grafToolStripMenuItem.ToolTipText = "Graf";
             this.grafToolStripMenuItem.Click += new System.EventHandler(this.grafToolStripMenuItem_Click_1);
             // 
             // statusStrip1
@@ -146,7 +136,7 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(27, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(26, 17);
             this.toolStripStatusLabel1.Text = "text";
             // 
             // dataGridView1
@@ -187,15 +177,15 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chart1.Location = new System.Drawing.Point(0, 24);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series1.ChartArea = "ChartArea1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Name = "Series1";
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(1014, 263);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";

@@ -438,7 +438,7 @@ namespace S7_Dimat
             label.Name = "desc";
 
             DataGridViewTextBoxColumn Result = new DataGridViewTextBoxColumn();
-            Result.HeaderText = "Hodnota";
+            Result.HeaderText = "Výsledek";
             Result.Name = "result";
             Result.ReadOnly = true;
             Result.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -542,10 +542,6 @@ namespace S7_Dimat
                             cmbtype.Items.Add("DEC");
                            /// cmbtype.Items.Add("HEX");
                            cmbtype.Items.Add("FLOAT");
-                        } else if (format.IsString)
-                        {
-                            cmbtype.Items.Add("STRING");
-                            defvalue = "STRING";
                         }
 
                         if (cmbtype.Value == null)
