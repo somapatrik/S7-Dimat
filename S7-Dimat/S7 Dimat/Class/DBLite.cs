@@ -64,7 +64,7 @@ namespace S7_Dimat.Class
             using (SQLiteConnection c = this.Connection)
             {
                 c.Open();
-                using (SQLiteCommand cmd = new SQLiteCommand(this.query, c))
+                using (SQLiteCommand cmd =  this.Command)
                 {
                     DataTable dt = new DataTable();
                     SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);

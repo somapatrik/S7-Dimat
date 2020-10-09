@@ -198,7 +198,7 @@ namespace S7_Dimat
                     pingthread.Start();
                 } else
                 {
-                    MessageBox.Show("Nelze se připojit k PLC", "Chyba připojení PLC");
+                    MessageBox.Show("Unable to connect to PLC", "PLC connection error");
                 }
             }
         }
@@ -426,19 +426,19 @@ namespace S7_Dimat
             DataTable dt = new DataTable();
 
             DataGridViewComboBoxColumn cmb_ResulType = new DataGridViewComboBoxColumn();
-            cmb_ResulType.HeaderText = "Výstupní formát";
+            cmb_ResulType.HeaderText = "Format";
             cmb_ResulType.Name = "format";
 
             DataGridViewTextBoxColumn Addr = new DataGridViewTextBoxColumn();
-            Addr.HeaderText = "Adresa";
+            Addr.HeaderText = "Address";
             Addr.Name = "address";
 
             DataGridViewTextBoxColumn label = new DataGridViewTextBoxColumn();
-            label.HeaderText = "Popisek";
+            label.HeaderText = "Description";
             label.Name = "desc";
 
             DataGridViewTextBoxColumn Result = new DataGridViewTextBoxColumn();
-            Result.HeaderText = "Výsledek";
+            Result.HeaderText = "Value";
             Result.Name = "result";
             Result.ReadOnly = true;
             Result.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -704,10 +704,10 @@ namespace S7_Dimat
                 db.Exec();
                 db = null;
             }
-                MessageBox.Show("Uložení dokončeno", "Uloženo");
+                MessageBox.Show("Successfully saved", "Saved");
             }catch (Exception ex)
             {
-                MessageBox.Show(ex.Message,"Chyba uložení", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message,"Save error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

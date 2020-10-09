@@ -31,8 +31,8 @@ namespace S7_Dimat
 
             if (Edit)
             {
-                btn_ok.Text = "Změnit";
-                Text = "Změnit PLC";
+                //btn_ok.Text = "Edit";
+                Text = "Edit PLC";
                 LoadPLC();
             }
         }
@@ -88,7 +88,7 @@ namespace S7_Dimat
         {
            if (Test())
             {
-                MessageBox.Show("Test ok", "Test připojení", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Test ok", "Connection test", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }            
         }
 
@@ -104,7 +104,7 @@ namespace S7_Dimat
                     PingReply reply = pinger.Send(txt_ip.Text, 3000);
                     if (reply.Status == IPStatus.Success)
                     {
-                        string msg = "PLC je dosažitelné";
+                        string msg = "PLC is reachable";
 
                         S7Type type = S7Type.S7300;
 
@@ -132,20 +132,20 @@ namespace S7_Dimat
                             plc.Connect();
                             if (plc.Connected)
                             {
-                                msg += "\r\nDo PLC se lze připojit";
+                                msg += "\r\nPLC connection is ok";
                                 res = true;
                             }
                             else
                             {
-                                msg += "\r\nDo PLC se nelze připojit";
-                                MessageBox.Show(msg, "Chyba PLC komunikace", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                msg += "\r\nUnable to connect to PLC";
+                                MessageBox.Show(msg, "PLC connection error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 res = false;
                             }
                         }
                         catch (Exception ex0)
                         {
-                            msg += "\r\nChyba připojení do PLC \r\n " + ex0.Message;
-                            MessageBox.Show(msg, "Chyba PLC komunikace", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            msg += "\r\nPLC connection exception\r\n " + ex0.Message;
+                            MessageBox.Show(msg, "PLC connection error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             res = false;
                         }
                         finally
@@ -157,14 +157,14 @@ namespace S7_Dimat
                     }
                     else
                     {
-                        MessageBox.Show("PLC nelze dosáhnout", "Chyba připojení PLC", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("PLC unreachable", "PLC connection error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         res = false;
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Chyba připojení PLC", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "PLC connection exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 res = false;
             }
             finally
@@ -209,7 +209,7 @@ namespace S7_Dimat
                 {
                     if (!Test())
                     {
-                        if (MessageBox.Show("K PLC se aktualně nedá připojit, chcete pokračovat?", "Nelze připojit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                        if (MessageBox.Show("Unable to connect to PLC, continue anyway?", "Unable to connect", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                         {
                             return;
                         }
@@ -231,7 +231,7 @@ namespace S7_Dimat
                                 this.DialogResult = DialogResult.OK;
                         } else
                         {
-                            MessageBox.Show("PLC s tímto názvem už existuje", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("There is already PLC with this name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     } else
                     {
@@ -250,14 +250,14 @@ namespace S7_Dimat
                         }
                         else
                         {
-                            MessageBox.Show("PLC s tímto názvem už existuje", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("There is already PLC with this name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
 
             } catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Chyba zapsání PLC do DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error while saving", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }      
         }
     }

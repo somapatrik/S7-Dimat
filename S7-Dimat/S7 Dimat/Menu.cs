@@ -72,7 +72,7 @@ namespace S7_Dimat
                 }
             } catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Chyba čtení z DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Unable to read from database", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
         }
@@ -98,7 +98,7 @@ namespace S7_Dimat
 
         private void smazatToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Opravdu chcete smazat toto PLC?", "Fakt smazat?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+            if (MessageBox.Show("Delete PLC?", "Delete PLC", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
             {
                 return;
             }

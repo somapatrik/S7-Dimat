@@ -68,9 +68,9 @@
             this.label1.Location = new System.Drawing.Point(12, 58);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 16);
+            this.label1.Size = new System.Drawing.Size(73, 16);
             this.label1.TabIndex = 2;
-            this.label1.Text = "IP adresa";
+            this.label1.Text = "IP address";
             // 
             // label2
             // 
@@ -78,9 +78,9 @@
             this.label2.Location = new System.Drawing.Point(12, 103);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 16);
+            this.label2.Size = new System.Drawing.Size(45, 16);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Název";
+            this.label2.Text = "Name";
             // 
             // combo_typ
             // 
@@ -99,9 +99,9 @@
             this.label3.Location = new System.Drawing.Point(12, 11);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 16);
+            this.label3.Size = new System.Drawing.Size(62, 16);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Typ PLC";
+            this.label3.Text = "PLC type";
             // 
             // rack
             // 
@@ -143,9 +143,9 @@
             this.label6.Location = new System.Drawing.Point(12, 148);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(43, 16);
+            this.label6.Size = new System.Drawing.Size(76, 16);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Popis";
+            this.label6.Text = "Description";
             // 
             // txt_desc
             // 
@@ -163,7 +163,7 @@
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(83, 26);
             this.btn_ok.TabIndex = 8;
-            this.btn_ok.Text = "Přidat";
+            this.btn_ok.Text = "Save";
             this.btn_ok.UseVisualStyleBackColor = true;
             this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
             // 

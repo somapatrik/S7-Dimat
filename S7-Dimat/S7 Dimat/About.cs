@@ -25,9 +25,9 @@ namespace S7_Dimat
             var versionInfo = FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location);
 
             label1.Text = Application.ProductName + "\r\n" +
-                            "v " + Application.ProductVersion + "\r\n" +
+                            "v" + Application.ProductVersion + "\r\n" +
                             versionInfo.LegalCopyright + "\r\n\r\n" +
-                            "Využívá otevřený software:" + "\r\n" +
+                            "Used open software:" + "\r\n" +
                             "SQLite, Sharp7, Icons8";
         }
     }

@@ -147,22 +147,22 @@
             this.změnitToolStripMenuItem,
             this.smazatToolStripMenuItem});
             this.context_plclist.Name = "contextMenuStrip1";
-            this.context_plclist.Size = new System.Drawing.Size(122, 48);
+            this.context_plclist.Size = new System.Drawing.Size(181, 70);
             // 
             // změnitToolStripMenuItem
             // 
             this.změnitToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("změnitToolStripMenuItem.Image")));
             this.změnitToolStripMenuItem.Name = "změnitToolStripMenuItem";
-            this.změnitToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.změnitToolStripMenuItem.Text = "Změnit...";
+            this.změnitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.změnitToolStripMenuItem.Text = "Edit";
             this.změnitToolStripMenuItem.Click += new System.EventHandler(this.změnitToolStripMenuItem_Click);
             // 
             // smazatToolStripMenuItem
             // 
             this.smazatToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("smazatToolStripMenuItem.Image")));
             this.smazatToolStripMenuItem.Name = "smazatToolStripMenuItem";
-            this.smazatToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.smazatToolStripMenuItem.Text = "Smazat";
+            this.smazatToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.smazatToolStripMenuItem.Text = "Delete...";
             this.smazatToolStripMenuItem.Click += new System.EventHandler(this.smazatToolStripMenuItem_Click);
             // 
             // context_new
@@ -170,14 +170,14 @@
             this.context_new.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.novéToolStripMenuItem1});
             this.context_new.Name = "context_new";
-            this.context_new.Size = new System.Drawing.Size(139, 26);
+            this.context_new.Size = new System.Drawing.Size(130, 26);
             // 
             // novéToolStripMenuItem1
             // 
             this.novéToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("novéToolStripMenuItem1.Image")));
             this.novéToolStripMenuItem1.Name = "novéToolStripMenuItem1";
-            this.novéToolStripMenuItem1.Size = new System.Drawing.Size(138, 22);
-            this.novéToolStripMenuItem1.Text = "Přidat PLC...";
+            this.novéToolStripMenuItem1.Size = new System.Drawing.Size(129, 22);
+            this.novéToolStripMenuItem1.Text = "Add PLC...";
             this.novéToolStripMenuItem1.Click += new System.EventHandler(this.novéToolStripMenuItem1_Click);
             // 
             // Menu
