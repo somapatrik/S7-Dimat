@@ -208,7 +208,6 @@ namespace S7_Dimat.Class
             return i;
         }
 
-
         private byte[] GetBuffer(int S7Area, int BufferSize, int DBNumber, int Start, int Amount, int WordLen)
         {           
             byte[] buffer = new byte[BufferSize];

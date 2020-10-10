@@ -287,7 +287,7 @@ namespace S7_Dimat
                                 resvalue = _plc.GetFloatS(resbyte);
                                 break;
                             case "CHAR":
-                                //
+                                resvalue = _plc.GetCharS(resbyte);
                                 break;
                             default:
                                 resvalue = "Data type error";
