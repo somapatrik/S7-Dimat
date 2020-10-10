@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using S7_Dimat.Class;
 using System.Data.SQLite;
+using Sharp7;
 
 namespace S7_Dimat
 {

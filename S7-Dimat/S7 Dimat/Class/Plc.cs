@@ -38,8 +38,6 @@ namespace S7_Dimat.Class
             }
         }
 
-
-
         public Plc(string Adrress, S7Type Plc)
         {
             PlcType = Plc;
@@ -165,7 +163,7 @@ namespace S7_Dimat.Class
 
         public string GetDecS(byte[] buffer)
         {
-            string i = "Chyba čtení";
+            string i = "[Error]";
 
             switch (buffer.Length)
             {
@@ -181,6 +179,15 @@ namespace S7_Dimat.Class
             }
 
             return i;
+        }
+
+        public string GetCharS(byte[] buffer)
+        {
+            string s = "";
+            if (buffer.Length > 0)
+                s = S7.GetCharsAt(buffer, 0,buffer.Length);
+
+            return s;
         }
 
         public string GetBinS(byte[] buffer)

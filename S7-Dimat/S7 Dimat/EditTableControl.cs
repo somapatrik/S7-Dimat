@@ -286,8 +286,11 @@ namespace S7_Dimat
                             case "FLOAT":
                                 resvalue = _plc.GetFloatS(resbyte);
                                 break;
+                            case "CHAR":
+                                //
+                                break;
                             default:
-                                resvalue = "Chyba formátu";
+                                resvalue = "Data type error";
                                 break;
                         }
                         
@@ -297,7 +300,7 @@ namespace S7_Dimat
                         if (Convert.ToBoolean(row.Cells["check"].Value))
                         {
                             // Insert into chart
-                            if (format.ToUpper() != "BIN") { 
+                            if (format.ToUpper() != "BIN" & format.ToUpper() != "CHAR") { 
                                 PlotResult dPlot = new PlotResult(InsertPlotPoint);
                                 this.Invoke(dPlot, GraphName, resvalue, format.ToUpper());
                             }
@@ -525,23 +528,27 @@ namespace S7_Dimat
 
                         if (format.IsBit)
                         {
-                            //cmbtype.Items.Add("BIN");
                             cmbtype.Items.Add("BOOL");
-                            //cmbtype.Items.Add("DEC");
                             defvalue = "BOOL";
                         }
-                        else if (format.IsByte || format.IsWord)
+                        else if (format.IsByte)
                         {
                             cmbtype.Items.Add("BIN");
                             cmbtype.Items.Add("DEC");
-                           // cmbtype.Items.Add("HEX");
+                            cmbtype.Items.Add("CHAR");
+                        }
+                        else if (format.IsWord)
+                        {
+                            cmbtype.Items.Add("BIN");
+                            cmbtype.Items.Add("DEC");
+                            cmbtype.Items.Add("CHAR");
                         }
                         else if (format.IsDouble)
                         {
                             cmbtype.Items.Add("BIN");
                             cmbtype.Items.Add("DEC");
-                           /// cmbtype.Items.Add("HEX");
-                           cmbtype.Items.Add("FLOAT");
+                            cmbtype.Items.Add("CHAR");
+                            cmbtype.Items.Add("FLOAT");
                         }
 
                         if (cmbtype.Value == null)
