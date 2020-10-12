@@ -12,3 +12,12 @@ At this moment you can read I,Q,M,DB memory.
 
 ## What devices?
 Simatic S7-300, S7-400, S7-1200, S7-1500
+
+## How do I read?
+The same way you would inside Simatic manager VAT.
+
+DB addressing examples: DB50.DBX0.1 | DB50.DBB5 |  DB50.DBW12 |  DB50.DBD30
+
+I/O addressing examples: IB2 |  QW51 |  ID69 |  Q1.5
+
+Merker addressing examples: MB2 |  MW51 |  MID69 |  M1.5
