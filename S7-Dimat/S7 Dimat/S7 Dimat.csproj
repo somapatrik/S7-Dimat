@@ -25,10 +25,14 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <TargetCulture>en</TargetCulture>
+    <ProductName>S7 Dimat</ProductName>
+    <PublisherName>Patrik Šoma</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -209,14 +213,22 @@
     <Content Include="dll\System.Data.SQLite.Linq.dll" />
     <Content Include="favicon.ico" />
     <Content Include="icon.ico" />
+    <Content Include="img\favicon.ico" />
     <Content Include="img\icon.ico" />
+    <Content Include="img\icons8-about-16.png" />
+    <Content Include="img\icons8-add-new-16.png" />
     <Content Include="img\icons8-binoculars-16.png" />
     <Content Include="img\icons8-checkmark-16.png" />
     <Content Include="img\icons8-close-window-48.png" />
     <Content Include="img\icons8-delete-16.png" />
+    <Content Include="img\icons8-electronics-40.png" />
     <Content Include="img\icons8-ok-16.png" />
     <Content Include="img\icons8-opera-glasses-48.png" />
+    <Content Include="img\icons8-pencil-16.png" />
+    <Content Include="img\icons8-plot-16.png" />
     <Content Include="img\icons8-plus-16.png" />
+    <Content Include="img\icons8-processor-16.png" />
+    <Content Include="img\icons8-save-16.png" />
     <Content Include="img\icons8-sonometer-48.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
