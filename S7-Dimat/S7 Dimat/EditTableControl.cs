@@ -258,15 +258,7 @@ namespace S7_Dimat
                         string format = row.Cells["format"].Value.ToString();
 
                         string GraphName = addr;
-                        // Get name for the graph
-                        //if (row.Cells["desc"].Value != null)
-                        //{
-                        //    if (!string.IsNullOrEmpty(row.Cells["desc"].Value.ToString()))
-                        //    {
-                        //        GraphName += " (" + row.Cells["desc"].Value.ToString() + ")";
-                        //    }
-                        //}
-
+                        
                         // Raw byte from PLC
                         byte[] resbyte = _plc.GetValue(addr);
                         // Formated user output
