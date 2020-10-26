@@ -1,6 +1,8 @@
 # S7-Dimat
 S7 Diagnostic &amp; maintenance tool
 
+![Image of S7 Dimat](https://www.soma-patrik.cz/wp-content/uploads/2019/04/V%C3%BDst%C5%99i%C5%BEek3.png)
+
 S7 Dimat is a simple software for reading Siemens PLC variables. It works almost the same way as VAT table inside Simatic manager. 
 It uses ethernet communication, so reading from only Profibus devices is impossible. I have used Sharp7 for communication.
 
