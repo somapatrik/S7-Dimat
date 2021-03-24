@@ -1,5 +1,5 @@
 
-# S7-Dimat is now Obsolete
+# S7-Dimat is now obsolete
 <ul>
   <li>At this moment I am working on Dimat version 2</li>
   <li>I am about 60% done</li>
