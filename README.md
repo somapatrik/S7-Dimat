@@ -1,9 +1,9 @@
 
 # S7-Dimat is now obsolete
 <ul>
-  <li>At this moment I am working on Dimat version 2</li>
+  <li>At this moment I am working on Dimat v2</li>
   <li>I am about 60% done</li>
-  <li>Based in WPF</li>
+  <li>WPF based</li>
   <li>Source code will probably not be open source</li>
   <li>Planned features for v2 include: PLC system functions, error reading, writing variables into PLC, notes and more</li>
   </ul>
